@@ -1,8 +1,6 @@
 import React from 'react';
 import { Notification, Button } from '@arco-design/web-react';
 
-let refreshing;
-
 function invokeServiceWorkerUpdateFlow(config, registration) {
   const id = 'notification';
   // there is a new service worker available, show the notification
@@ -26,6 +24,9 @@ function invokeServiceWorkerUpdateFlow(config, registration) {
           size="small"
           onClick={() => {
             if (registration.waiting) {
+              navigator.serviceWorker.addEventListener('controllerchange', () => window.location.reload(), {
+                once: true,
+              });
               registration.waiting.postMessage({ type: 'SKIP_WAITING' });
               Notification.remove(id);
             }
@@ -41,7 +42,7 @@ function invokeServiceWorkerUpdateFlow(config, registration) {
 
 export function registerServiceWorker(config) {
   if ('serviceWorker' in navigator) {
-    window.addEventListener('load', async () => {
+    window.addEventListener('load', () => {
       const swUrl = '/serviceWorker.js';
       navigator.serviceWorker
         .register(swUrl)
@@ -69,17 +70,7 @@ export function registerServiceWorker(config) {
           console.error('Error during service worker registration:', error);
         });
 
-      // avoid reload on first time
-      const oldSw = (await navigator.serviceWorker.getRegistration())?.active?.state;
-      navigator.serviceWorker.addEventListener('controllerchange', async () => {
-        if (refreshing) return;
-        const newSw = (await navigator.serviceWorker.getRegistration())?.active?.state;
-        if (oldSw === 'activated' && newSw === 'activating') {
-          // reload on controller change
-          window.location.reload();
-          refreshing = true;
-        }
-      });
+
     });
   }
 }

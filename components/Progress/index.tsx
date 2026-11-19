@@ -18,13 +18,36 @@ const defaultProps: ProgressProps = {
 function Progress(baseProps: ProgressProps, ref) {
   const { getPrefixCls, componentConfig, rtl } = useContext(ConfigContext);
   const props = useMergeProps<ProgressProps>(baseProps, defaultProps, componentConfig?.Progress);
-  const { className, style, size, width, strokeWidth, steps, percent, ...rest } = props;
+  const {
+    className,
+    style,
+    size,
+    width,
+    strokeWidth,
+    steps,
+    percent: rawPercent,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
+    'aria-valuetext': ariaValueText,
+    ...rest
+  } = props;
+  const percent = Number.isFinite(rawPercent) ? Math.min(100, Math.max(0, rawPercent)) : 0;
+  const progressbarProps = {
+    role: 'progressbar',
+    'aria-valuemin': 0,
+    'aria-valuemax': 100,
+    'aria-valuenow': percent,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
+    'aria-valuetext': ariaValueText,
+  };
 
   const type = steps && props.type !== 'circle' ? 'steps' : props.type;
 
   const prefixCls = getPrefixCls('progress');
   const status = 'status' in props ? props.status : percent >= 100 ? 'success' : 'normal';
 
+  const sharedProps = { ...props, percent, status, prefixCls, progressbarProps };
   const widthStyle: CSSProperties = { width };
 
   if (size === 'mini' && type === 'line') {
@@ -59,31 +82,27 @@ function Progress(baseProps: ProgressProps, ref) {
       ])}
     >
       {type === 'steps' && (
-        <StepsProgress {...props} type={type} status={status} prefixCls={prefixCls} />
+        <StepsProgress {...sharedProps} type={type} />
       )}
 
       {type === 'circle' && (
         <CircleProgress
           width={props.width as any}
-          {...props}
+          {...sharedProps}
           pathStrokeColor={props.trailColor}
-          status={status}
-          prefixCls={prefixCls}
         />
       )}
       {type === 'line' &&
         (size === 'mini' ? (
           <CircleProgress
             pathStrokeColor={props.trailColor}
-            {...props}
+            {...sharedProps}
             pathStrokeWidth={strokeWidth || 4}
             width={(width as number) || 16}
             strokeWidth={strokeWidth || 4}
-            prefixCls={prefixCls}
-            status={status}
           />
         ) : (
-          <LineProgress {...props} status={status} prefixCls={prefixCls} />
+          <LineProgress {...sharedProps} />
         ))}
     </div>
   );

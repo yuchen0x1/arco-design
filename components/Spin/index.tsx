@@ -1,5 +1,4 @@
-import React, { ReactElement, useState, useEffect, useContext, useCallback } from 'react';
-import debounce from 'lodash/debounce';
+import React, { ReactElement, useState, useEffect, useContext } from 'react';
 import IconLoading from '../../icon/react-icon/IconLoading';
 import cs from '../_util/classNames';
 import { ConfigContext } from '../ConfigProvider';
@@ -27,17 +26,16 @@ function Spin(baseProps: SpinProps, ref) {
   } = props;
 
   const [loading, setLoading] = useState<boolean>(delay ? false : propLoading);
-  const debouncedSetLoading = useCallback(debounce(setLoading, delay), [delay]);
 
   const _usedLoading = delay ? loading : propLoading;
   const prefixCls = getPrefixCls('spin');
 
   useEffect(() => {
-    delay && debouncedSetLoading(propLoading);
-    return () => {
-      debouncedSetLoading && debouncedSetLoading.cancel();
-    };
-  }, [propLoading]);
+    if (delay) {
+      const timer = setTimeout(() => setLoading(propLoading), delay);
+      return () => clearTimeout(timer);
+    }
+  }, [propLoading, delay]);
 
   const loadingIcon = (
     <span className={`${prefixCls}-icon`}>

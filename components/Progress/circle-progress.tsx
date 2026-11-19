@@ -26,6 +26,7 @@ const CircleProgress = (
     width: number;
     pathStrokeWidth?: number;
     pathStrokeColor?: string;
+    progressbarProps: React.HTMLAttributes<HTMLDivElement>;
   }
 ) => {
   const { size, percent = 0, prefixCls, showText, status, formatText } = props;
@@ -65,10 +66,7 @@ const CircleProgress = (
   let dom = (
     <div
       className={`${cls}-wrapper`}
-      role="progressbar"
-      aria-valuemin={0}
-      aria-valuemax={100}
-      aria-valuenow={percent}
+      {...props.progressbarProps}
       style={{ width, height: width }}
     >
       <svg viewBox={`0 0 ${width} ${width}`} className={`${svgCls}`}>
@@ -106,7 +104,7 @@ const CircleProgress = (
           style={{
             stroke: color,
             strokeDasharray: perimeter,
-            strokeDashoffset: (percent > 100 ? 100 : 1 - percent / 100) * perimeter,
+            strokeDashoffset: (1 - percent / 100) * perimeter,
           }}
         />
       </svg>
@@ -117,7 +115,7 @@ const CircleProgress = (
   // type === line 时候，返回的是一个圆环
   if (size === 'mini' && status === 'success' && props.type === 'circle') {
     dom = (
-      <div className={`${cls}-wrapper`} style={{ width, height: width }}>
+      <div className={`${cls}-wrapper`} {...props.progressbarProps} style={{ width, height: width }}>
         <IconCheck style={{ fontSize: width - 2, color }} />
       </div>
     );

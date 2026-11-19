@@ -1,0 +1,13 @@
+name: Component enhancement
+description: Propose a change to this fork.
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: Which interaction or integration needs improvement?
+    validations:
+      required: true
+  - type: textarea
+    id: compatibility
+    attributes:
+      label: Proposed API and compatibility with existing applications

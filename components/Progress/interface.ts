@@ -1,9 +1,10 @@
-import { CSSProperties, ReactNode } from 'react';
+import { AriaAttributes, CSSProperties, ReactNode } from 'react';
 
 /**
  * @title Progress
  */
-export interface ProgressProps {
+export interface ProgressProps
+  extends Pick<AriaAttributes, 'aria-label' | 'aria-labelledby' | 'aria-valuetext'> {
   style?: CSSProperties;
   className?: string | string[];
   /**

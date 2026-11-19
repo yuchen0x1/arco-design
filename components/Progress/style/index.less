@@ -359,6 +359,20 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .@{progress-prefix-cls} {
+    &-line-inner,
+    &-line-inner-buffer,
+    &-circle-path {
+      transition: none;
+    }
+
+    &-line-inner-animate::after {
+      animation: none;
+    }
+  }
+}
+
 @keyframes ~'@{prefix}-progress-loading' {
   0% {
     background-position: 100% 50%;

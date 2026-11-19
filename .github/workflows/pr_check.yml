@@ -1,42 +1,75 @@
-name: pr_check
+name: Web library CI
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+  push:
+    branches: [main, 'codex/**']
+  workflow_call:
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
-  jest-test:
+  build:
     runs-on: ubuntu-latest
+    timeout-minutes: 55
+    env:
+      TZ: Asia/Singapore
+      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+      HUSKY: '0'
+      NODE_OPTIONS: --max-old-space-size=6144
     steps:
-      - name: checkout
-        uses: actions/checkout@master
-
-      - name: setup node
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
-          node-version: 16
-          cache: 'yarn'
-
-      - name: install
-        run: yarn run dependencies
-
-      - name: run-icon
-        run: yarn icon
-
-      - name: build:cjs
-        run: yarn build:cjs
-
-      - name: build:es
-        run: yarn build:es
-
-      - name: mock-time
-        uses: szenius/set-timezone@v1.0
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
-          timezoneLinux: 'Asia/Singapore'
-          timezoneMacos: 'Asia/Singapore'
-          timezoneWindows: 'Singapore Standard Time'
-
-      - name: test:client
-        run: yarn test:client
-
-      - name: test:node
-        run: yarn test:node
+          node-version: 16.20.2
+          cache: yarn
+          cache-dependency-path: |
+            yarn.lock
+            site/yarn.lock
+      - run: yarn install --frozen-lockfile --ignore-scripts
+      - run: yarn --cwd site install --frozen-lockfile --ignore-scripts
+      - run: yarn icon
+      - run: node scripts/generate-version.js && git diff --exit-code -- components/index.tsx
+      - run: yarn build
+      - run: yarn test:client --maxWorkers=2
+      - run: yarn test:node --maxWorkers=2
+      - run: mkdir -p artifacts && npm pack --ignore-scripts --pack-destination artifacts
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: library-package
+          path: artifacts/*.tgz
+          if-no-files-found: error
+          retention-days: 7
+  consumer:
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 22
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: library-package
+          path: artifacts
+      - shell: bash
+        run: |
+          set -euo pipefail
+          package=("$GITHUB_WORKSPACE"/artifacts/*.tgz)
+          version=$(node -p "require('./package.json').version")
+          cd "$RUNNER_TEMP"
+          mkdir consumer && cd consumer
+          npm init -y
+          npm install --ignore-scripts --no-audit --fund=false react@16.14.0 react-dom@16.14.0 "${package[0]}"
+          node "$GITHUB_WORKSPACE/scripts/check-consumer.js" "$version"
+          npm audit --omit=dev --audit-level=high

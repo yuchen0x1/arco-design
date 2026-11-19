@@ -40,10 +40,7 @@ export const StepsProgress = (props) => {
     <div className={`${cls}-wrapper`}>
       <div
         className={`${cls}-outer`}
-        role="progressbar"
-        aria-valuemin={0}
-        aria-valuemax={100}
-        aria-valuenow={percent}
+        {...props.progressbarProps}
         style={{ height }}
       >
         {[...new Array(props.steps)].map((_, index) => {

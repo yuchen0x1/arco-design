@@ -19,7 +19,7 @@ import { Progress } from '@arco-design/web-react';
 const App = () => {
   return (
     <div>
-      <Progress percent={30} width="40%" />
+      <Progress aria-label="Upload" percent={30} width="40%" />
     </div>
   );
 };

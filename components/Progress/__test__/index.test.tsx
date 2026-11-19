@@ -8,6 +8,25 @@ mountTest(Progress);
 componentConfigTest(Progress, 'Progress');
 
 describe('Progress', () => {
+  it('preserves the accessible name and value through every rendering mode', () => {
+    const { getByRole, rerender } = render(<Progress aria-label="Upload" percent={-10} />);
+    const progress = () => getByRole('progressbar', { name: 'Upload' });
+    expect(progress()).toHaveAttribute('aria-valuenow', '0');
+    rerender(<Progress aria-label="Upload" percent={34} steps={5} aria-valuetext="Sending" />);
+    expect(progress()).toHaveAttribute('aria-valuetext', 'Sending');
+    rerender(<Progress aria-label="Upload" percent={125} type="circle" />);
+    expect(progress()).toHaveAttribute('aria-valuenow', '100');
+    rerender(<Progress aria-label="Upload" percent={100} size="mini" type="circle" />);
+    expect(progress()).toHaveAttribute('aria-valuenow', '100');
+    rerender(
+      <div>
+        <span id="upload">Upload</span>
+        <Progress aria-labelledby="upload" percent={NaN} />
+      </div>
+    );
+    expect(progress()).toHaveAttribute('aria-valuenow', '0');
+  });
+
   it('render correctly ', () => {
     const wrapper = render(<Progress percent={10} />);
     expect(wrapper.querySelector('.arco-progress-line-text')!.innerHTML).toBe('10%');

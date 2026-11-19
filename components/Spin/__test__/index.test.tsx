@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '../../../tests/util';
+import { act, render } from '../../../tests/util';
 import mountTest from '../../../tests/mountTest';
 import componentConfigTest from '../../../tests/componentConfigTest';
 import Spin from '..';
@@ -49,6 +49,15 @@ describe('Spin', () => {
     expect(wrapper.find('.arco-spin-loading-layer').length).toBe(0);
     jest.runAllTimers();
     expect(wrapper.find('.arco-spin-loading-layer').length).toBe(1);
+  });
+
+  it('reschedules a pending indicator when the delay changes', () => {
+    const view = render(<Spin loading delay={500}>Content</Spin>);
+    view.rerender(<Spin loading delay={20}>Content</Spin>);
+    act(() => {
+      jest.advanceTimersByTime(20);
+    });
+    expect(view.find('.arco-spin-loading-layer')).toHaveLength(1);
   });
 
   it('spin with display:block', () => {

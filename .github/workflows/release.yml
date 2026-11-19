@@ -1,22 +1,61 @@
-name: auto-release
-on: create
+name: Fork release
+on:
+  push:
+    tags: ['v*.*.*']
+
+permissions:
+  contents: read
+
 jobs:
-  release:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - run: |
+          set -euo pipefail
+          git merge-base --is-ancestor HEAD origin/main
+          version=$(node -p "require('./package.json').version")
+          [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ && "$GITHUB_REF_NAME" == "v$version" ]]
+          test -s "docs/releases/$GITHUB_REF_NAME.md"
+  checks:
+    needs: validate
+    uses: ./.github/workflows/pr_check.yml
+  publish:
+    needs: checks
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      attestations: write
+      id-token: write
     steps:
-      - name: checkout
-        uses: actions/checkout@v3
-
-      - name: Get the version
-        id: get_version
-        run: echo "VERSION=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_OUTPUT
-
-      - name: create-release
-        if: github.event.ref_type == 'tag'
-        uses: arco-design/arco-auto-release@main
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          changelogPaths: 'site/docs/version_v2.en-US.md,site/docs/version_v2.zh-CN.md'
-          tagName: ${{ steps.get_version.outputs.VERSION }}
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: library-package
+          path: artifacts
+      - name: Generate verification files
+        working-directory: artifacts
+        run: |
+          set -euo pipefail
+          sha256sum *.tgz > SHA256SUMS
+          jq -n --arg tag "$GITHUB_REF_NAME" --arg commit "$(git rev-parse HEAD)" \
+            --arg file "$(ls *.tgz)" --arg digest "$(cut -d' ' -f1 SHA256SUMS)" \
+            --argjson bytes "$(stat -c %s *.tgz)" \
+            '{tag:$tag,commit:$commit,asset:$file,bytes:$bytes,sha256:$digest,platform:"web"}' > release.json
+      - uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3
+        with:
+          subject-path: artifacts/*
+      - name: Publish verified archive
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh release create "$GITHUB_REF_NAME" artifacts/* --draft --verify-tag --title "Arco Design React $GITHUB_REF_NAME (fork)" --notes-file "docs/releases/$GITHUB_REF_NAME.md"
+          gh release download "$GITHUB_REF_NAME" --dir "$RUNNER_TEMP/verify"
+          (cd "$RUNNER_TEMP/verify" && sha256sum -c SHA256SUMS && gh attestation verify *.tgz --repo "$GITHUB_REPOSITORY")
+          gh release edit "$GITHUB_REF_NAME" --draft=false --latest
