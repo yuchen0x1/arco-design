@@ -8,13 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@v7
 
       - name: install
         run: yarn && cd site && yarn && cd ..
 
       - name: setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v7
         with:
           node-version: 14
 

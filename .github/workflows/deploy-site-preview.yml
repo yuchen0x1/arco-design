@@ -21,10 +21,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
 
       - name: setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v7
         with:
           node-version: 16
           cache: 'yarn'
@@ -39,7 +39,7 @@ jobs:
         run: yarn build:site
 
       - name: Upload site-dist Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: site-dist
           path: site/dist
@@ -49,16 +49,16 @@ jobs:
     needs: build-site
     steps:
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
 
       - name: setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v7
         with:
           node-version: 18
           cache: 'yarn'
 
       - name: Download site-dist Artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           # Artifact name
           name: site-dist
@@ -91,16 +91,16 @@ jobs:
       github.event.pull_request.head.repo.full_name == github.repository
     steps:
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
 
       - name: setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v7
         with:
           node-version: 16
           cache: 'yarn'
 
       - name: PR Comment
-        uses: peter-evans/create-or-update-comment@v3
+        uses: peter-evans/create-or-update-comment@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ github.event.number }}
@@ -112,7 +112,7 @@ jobs:
     needs: deploy-preview
     steps:
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
         with:
           fetch-depth: 2
 
@@ -120,7 +120,7 @@ jobs:
         run: yarn
 
       - name: setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v7
         with:
           node-version: 16
           cache: 'yarn'
