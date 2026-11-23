@@ -47,7 +47,9 @@ describe('Spin', () => {
     );
 
     expect(wrapper.find('.arco-spin-loading-layer').length).toBe(0);
-    jest.runAllTimers();
+    act(() => {
+      jest.runAllTimers();
+    });
     expect(wrapper.find('.arco-spin-loading-layer').length).toBe(1);
   });
 
@@ -58,6 +60,18 @@ describe('Spin', () => {
       jest.advanceTimersByTime(20);
     });
     expect(view.find('.arco-spin-loading-layer')).toHaveLength(1);
+  });
+
+  it('hides immediately when loading stops despite a delay', () => {
+    const view = render(<Spin loading delay={20}>Content</Spin>);
+    act(() => {
+      jest.advanceTimersByTime(20);
+    });
+    expect(view.find('.arco-spin-loading-layer')).toHaveLength(1);
+
+    view.rerender(<Spin loading={false} delay={500}>Content</Spin>);
+
+    expect(view.find('.arco-spin-loading-layer')).toHaveLength(0);
   });
 
   it('spin with display:block', () => {

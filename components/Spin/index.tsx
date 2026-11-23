@@ -31,10 +31,11 @@ function Spin(baseProps: SpinProps, ref) {
   const prefixCls = getPrefixCls('spin');
 
   useEffect(() => {
-    if (delay) {
+    if (delay && propLoading) {
       const timer = setTimeout(() => setLoading(propLoading), delay);
       return () => clearTimeout(timer);
     }
+    setLoading(propLoading);
   }, [propLoading, delay]);
 
   const loadingIcon = (

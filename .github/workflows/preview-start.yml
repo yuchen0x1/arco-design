@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: update status comment
-        uses: mshick/add-pr-comment@v3
+        uses: mshick/add-pr-comment@f4a1cfec85787e0670886207dab740578eb57597 # v3
         env:
           PR_NUMBER: ${{ github.event.number }}
         with:
