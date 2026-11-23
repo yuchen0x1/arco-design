@@ -7,12 +7,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       - name: install
         run: yarn run dependencies && yarn add react@18 react-dom@18 -D
       - name: setup node
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
         with:
           node-version: 14
 
@@ -26,7 +26,7 @@ jobs:
         run: yarn build:es
 
       - name: mock-time
-        uses: szenius/set-timezone@v1.0
+        uses: szenius/set-timezone@dd47655c84241eec2ffa0a855959c16c0920c3c4 # v1.0
         with:
           timezoneLinux: 'Asia/Singapore'
           timezoneMacos: 'Asia/Singapore'

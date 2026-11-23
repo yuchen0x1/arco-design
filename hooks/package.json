@@ -5,10 +5,10 @@
   "main": "./lib/index.js",
   "module": "./es/index.js",
   "scripts": {
-    "build:es": "rm -rf ./es && npx tsc -p tsconfig.json",
-    "build:cjs": "rm -rf ./lib && npx tsc -p tsconfig.cjs.json",
+    "build:es": "rimraf ./es && tsc -p tsconfig.json",
+    "build:cjs": "rimraf ./lib && tsc -p tsconfig.cjs.json",
     "build:dist": "cd ../ && BUILD_TYPE=hooks ./node_modules/.bin/arco-scripts build:component:dist",
-    "generate": "rm -rf src-es/* && rm -rf src-lib/* &&  node ./scripts/generate.js ",
+    "generate": "rimraf src-es/* src-lib/* && node ./scripts/generate.js ",
     "build": "yarn generate && yarn build:cjs && yarn build:es"
   },
   "peerDependencies": {

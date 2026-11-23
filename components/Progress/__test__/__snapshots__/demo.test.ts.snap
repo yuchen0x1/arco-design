@@ -71,6 +71,7 @@ exports[`renders Progress/demo/basic.md correctly 1`] = `
       class="arco-progress-line-wrapper"
     >
       <div
+        aria-label="Upload"
         aria-valuemax="100"
         aria-valuemin="0"
         aria-valuenow="30"
@@ -784,7 +785,11 @@ exports[`renders Progress/demo/mini.md correctly 1`] = `
       style="margin-right:80px"
     >
       <div
+        aria-valuemax="100"
+        aria-valuemin="0"
+        aria-valuenow="100"
         class="arco-progress-circle-wrapper"
+        role="progressbar"
         style="width:16px;height:16px"
       >
         <svg
