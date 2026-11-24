@@ -3720,12 +3720,10 @@ iferr@^0.1.5:
   resolved "https://registry.yarnpkg.com/iferr/-/iferr-0.1.5.tgz#c60eed69e6d8fdb6b3104a1fcbca1c192dc5b501"
   integrity sha512-DUNFN5j7Tln0D+TxzloUjKB+CtVu6myn0JEFak6dG18mNt9YkQ6lzGCdafwofISZ1lLF3xRHJ98VKy9ynkcFaA==
 
-image-size@0.8.3, image-size@1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/image-size/-/image-size-1.2.1.tgz#ee118aedfe666db1a6ee12bed5821cde3740276d"
-  integrity sha512-rH+46sQJ2dlwfjfhCyNx5thzrv+dtmBIhPHk0zgRUukHzZ/kRueTJXoYYsclBaKcSMBWuGbOFXtioLpzTb5euw==
-  dependencies:
-    queue "6.0.2"
+image-size@0.8.3, image-size@2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/image-size/-/image-size-2.0.3.tgz#5225a99e99851b1dfc5fdcd6fcdeeebeeaf6a6a4"
+  integrity sha512-9BJAtVCBth+76NwqnEfWr3PiRnYhbquk6K/USuQ1GQajz5NgLzO7tNsnoNjHfO7LuftgkBf+CCH6j28hjMbIYQ==
 
 import-lazy@^2.1.0:
   version "2.1.0"
@@ -4955,13 +4953,6 @@ qs@~6.16.0:
   dependencies:
     es-define-property "^1.0.1"
     side-channel "^1.1.1"
-
-queue@6.0.2:
-  version "6.0.2"
-  resolved "https://registry.yarnpkg.com/queue/-/queue-6.0.2.tgz#b91525283e2315c7553d2efa18d83e76432fed65"
-  integrity sha512-iHZWu+q3IdFZFX36ro/lKBkSvfkztY5Y7HMiPlOUjhupPcG2JMfst2KKEpu5XndviX/3UhFbRngUPNKtgvtZiA==
-  dependencies:
-    inherits "~2.0.3"
 
 quick-lru@^5.1.1:
   version "5.1.1"
