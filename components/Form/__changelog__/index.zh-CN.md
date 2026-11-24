@@ -1,3 +1,11 @@
+## 2.66.21
+
+2026-11-24
+
+### 🐛 问题修复
+
+- 修复空的 `Form.List` 在提交结果中被省略，导致 `onSubmit` 等结果与 `onValuesChange` 不一致的问题([#3181](https://github.com/arco-design/arco-design/issues/3181))
+
 ## 2.66.15
 
 2026-05-08

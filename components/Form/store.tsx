@@ -519,8 +519,18 @@ class Store<
           }
           const item = this.getRegisteredField(x.field);
           if (!item?.props?.isFormList) {
-            // 保持和 2.46.0 之前版本行为一致，避免 {users: []}
             set(values, x.field, x.value);
+          }
+        });
+
+        this.getRegisteredFields(true, { containFormList: true }).forEach((control) => {
+          if (control.props?.isFormList && control.isTouched()) {
+            const field = control.props.field;
+            const listValue = get(this.store, field);
+            const existing = get(values, field);
+            if (isArray(listValue) && (existing === undefined || existing === null)) {
+              set(values, field, cloneDeep(listValue));
+            }
           }
         });
 

@@ -229,7 +229,8 @@ const Picker = (baseProps: RangePickerProps, ref) => {
 
   const [panelModes, setPanelModes] = useState<ModeType[]>([mode, mode]);
 
-  const [isTimePanel, setIsTimePanel] = useState<boolean>(false);
+  const openTimePanel = isObject(showTime) && showTime.openTimePanel;
+  const [isTimePanel, setIsTimePanel] = useState<boolean>(!!openTimePanel);
 
   const mergedPopupVisible = 'popupVisible' in props ? props.popupVisible : popupVisible;
   const propsValueDayjs = getRangeValue(propsValue, utcOffset, timezone) as Dayjs[];
@@ -326,7 +327,6 @@ const Picker = (baseProps: RangePickerProps, ref) => {
 
     if (mergedPopupVisible) {
       const resetPageShowDates = getShowDatesFromFocused(defaultPageShowDates);
-      setIsTimePanel(false);
       setPanelModes([mode, mode]);
       setPageShowDates(resetPageShowDates);
       handlePickerValueChange(resetPageShowDates);
@@ -342,6 +342,12 @@ const Picker = (baseProps: RangePickerProps, ref) => {
     }
     firstRange.current = mergedPopupVisible;
   }, [mergedPopupVisible]);
+
+  useEffect(() => {
+    if (mergedPopupVisible) {
+      setIsTimePanel(!!openTimePanel);
+    }
+  }, [mergedPopupVisible, openTimePanel]);
 
   const startStr = propsValueDayjs?.[0]?.format(getFormatByIndex(format, 0));
   const endStr = propsValueDayjs?.[1]?.format(getFormatByIndex(format, 1));

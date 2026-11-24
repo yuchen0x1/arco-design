@@ -10,7 +10,14 @@ import React, {
 import { Dayjs, UnitType } from 'dayjs';
 import Trigger from '../Trigger';
 import DateInput from '../_class/picker/input';
-import { PickerProps, CalendarValue, ShortcutType, ModeType, DatePickerHandle } from './interface';
+import {
+  PickerProps,
+  CalendarValue,
+  ShortcutType,
+  ModeType,
+  DatePickerHandle,
+  DatePickerShowTimeProps,
+} from './interface';
 import { TimePickerProps } from '../TimePicker/interface';
 import { isArray, isDayjs, isObject, isUndefined } from '../_util/is';
 import cs from '../_util/classNames';
@@ -72,7 +79,7 @@ interface InnerPickerProps extends PickerProps {
   format?: string;
   defaultValue?: CalendarValue | CalendarValue[];
   value?: CalendarValue | CalendarValue[];
-  showTime?: boolean | TimePickerProps;
+  showTime?: boolean | DatePickerShowTimeProps;
   timepickerProps?: TimePickerProps;
   onSelect?: (dateString: string, date: Dayjs) => void;
   onChange?: (dateString: string, date: Dayjs) => void;
@@ -183,7 +190,8 @@ const Picker = (baseProps: InnerPickerProps, ref) => {
 
   const [value, setValue] = useState<Dayjs>(getDefaultValue());
   const [popupVisible, setPopupVisible] = useState<boolean>(props.popupVisible);
-  const [isTimePanel, setIsTimePanel] = useState<boolean>(false);
+  const openTimePanel = isObject(showTime) && showTime.openTimePanel;
+  const [isTimePanel, setIsTimePanel] = useState<boolean>(!!openTimePanel);
   const [hoverPlaceholderValue, setHoverPlaceholderValue] = useState<string>();
 
   const mergedPopupVisible = 'popupVisible' in props ? props.popupVisible : popupVisible;
@@ -259,6 +267,12 @@ const Picker = (baseProps: InnerPickerProps, ref) => {
       }, 100);
     }
   }, [mergedPopupVisible]);
+
+  useEffect(() => {
+    if (mergedPopupVisible) {
+      setIsTimePanel(!!openTimePanel);
+    }
+  }, [mergedPopupVisible, openTimePanel]);
 
   function visibleChange(visible) {
     if (visible) {

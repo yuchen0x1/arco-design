@@ -1,3 +1,11 @@
+## 2.66.21
+
+2026-11-24
+
+### 🆕 功能升级
+
+- `DatePicker` 和 `RangePicker` 的 `showTime` 新增 `openTimePanel` 配置，可在弹窗打开时默认展示时间面板，默认行为保持不变([#3202](https://github.com/arco-design/arco-design/issues/3202))
+
 ## 2.66.14
 
 2026-04-16

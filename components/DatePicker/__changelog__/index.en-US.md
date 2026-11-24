@@ -1,3 +1,11 @@
+## 2.66.21
+
+2026-11-24
+
+### 🆕 Feature
+
+- Added the opt-in `showTime.openTimePanel` setting to `DatePicker` and `RangePicker`; it opens the time panel with the popup while preserving the existing default.([#3202](https://github.com/arco-design/arco-design/issues/3202))
+
 ## 2.66.14
 
 2026-04-16

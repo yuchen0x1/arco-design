@@ -64,7 +64,7 @@ Choose a date. Support year, month, week, day type, support range selection, etc
 |---|---|---|---|
 |showNowBtn|When displaying `showTime`, button to select current time.|boolean |`true`|
 |defaultValue|To set default date|[CalendarValue](#calendarvalue) |`-`|
-|showTime|Whether to show time selection|boolean \| [TimePickerProps](#timepickerprops) |`-`|
+|showTime|Whether to show time selection. The object supports `openTimePanel` to show the time panel when the popup opens.|boolean \| [DatePickerShowTimeProps](#datepickershowtimeprops) |`-`|
 |timepickerProps|Parameters of TimePicker, refer to [TimePickerProps](/react/components/time-picker), which has the same function as `showTime`.|[TimePickerProps](#timepickerprops) |`-`|
 |value|To set date|[CalendarValue](#calendarvalue) |`-`|
 |disabledTime|Specify the time that cannot be selected|(current?: Dayjs) => [DisabledTimeProps](#disabledtimeprops) |`-`|
@@ -118,7 +118,7 @@ Choose a date. Support year, month, week, day type, support range selection, etc
 |inputProps|Native input attributes|React.InputHTMLAttributes&lt;HTMLInputElement&gt;[] |`-`|2.60.0|
 |pickerValue|Displayed date of panel.|[CalendarValue](#calendarvalue)[] |`-`|2.9.0|
 |placeholder|The placeholder of input|string[] |`-`|-|
-|showTime|Whether to show time selection, if an object is passed in, the parameters will be passed to the built-in TimePicker.|boolean \| [TimePickerRangeProps](#timepickerrangeprops) |`-`|-|
+|showTime|Whether to show time selection. Object parameters are passed to the built-in TimePicker; `openTimePanel` shows the time panel when the popup opens.|boolean \| [TimePickerRangeProps](#timepickerrangeprops) |`-`|-|
 |timepickerProps|Parameters of TimePicker, refer to [TimePickerProps](/react/components/time-picker), which has the same function as `showTime`.|[TimePickerProps](#timepickerprops) |`-`|-|
 |value|To set date|[CalendarValue](#calendarvalue)[] |`-`|-|
 |onChange|Callback when the selected value changes|(dateString: string[], date: Dayjs[]) => void |`-`|-|
@@ -146,6 +146,14 @@ export type CalendarValue = number | string | Date | Dayjs;
 export type TimePickerProps = BaseTimePickerProps & PickerProps;
 ```
 
+### DatePickerShowTimeProps
+
+```js
+export type DatePickerShowTimeProps = TimePickerProps & {
+  openTimePanel?: boolean;
+};
+```
+
 ### DisabledTimeProps
 
 ```js
@@ -159,7 +167,7 @@ export type DisabledTimeProps = {
 ### TimePickerRangeProps
 
 ```js
-export type TimePickerRangeProps = Omit<TimePickerProps, "defaultValue"> & {
+export type TimePickerRangeProps = Omit<DatePickerShowTimeProps, "defaultValue"> & {
   defaultValue?: CalendarValue[];
 };
 ```

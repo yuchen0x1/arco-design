@@ -1,3 +1,11 @@
+## 2.66.21
+
+2026-11-24
+
+### 🐛 BugFix
+
+- Show the mini circular Progress success check only when the progress reaches 100%.([#3182](https://github.com/arco-design/arco-design/issues/3182))
+
 ## 2.25.0
 
 2021-11-19

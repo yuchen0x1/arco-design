@@ -121,6 +121,10 @@ function useInterval(props: {
       allConfigs.push(config);
     });
 
+    if (allConfigs.length) {
+      allConfigs[allConfigs.length - 1].endOffset = 1;
+    }
+
     return allConfigs;
   }, [getIntervalConfig, markIntervals, max, min, props.step]);
   return {

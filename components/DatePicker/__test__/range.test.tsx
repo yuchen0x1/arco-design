@@ -47,6 +47,30 @@ describe('RangePicker', () => {
     checkRangeTime(component, 1, '01', '02', '03');
   });
 
+  it('openTimePanel', () => {
+    const component = render(<RangePicker showTime={{ openTimePanel: true }} />);
+
+    fireEvent.click(component.container.firstChild!);
+
+    expect(component.find('.arco-timepicker-list').length).toBeGreaterThan(0);
+  });
+
+  it('openTimePanel with an initially visible popup', async () => {
+    const component = render(<RangePicker popupVisible showTime={{ openTimePanel: true }} />);
+
+    await sleep(100);
+
+    expect(component.find('.arco-timepicker-list').length).toBeGreaterThan(0);
+  });
+
+  it('showTime defaults to the calendar panel', () => {
+    const component = render(<RangePicker showTime />);
+
+    fireEvent.click(component.container.firstChild!);
+
+    expect(component.find('.arco-timepicker-list')).toHaveLength(0);
+  });
+
   it('hideNotInViewDates', () => {
     const component = render(<DatePicker.RangePicker hideNotInViewDates triggerElement={null} />);
 

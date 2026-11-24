@@ -17,6 +17,7 @@ import {
   DatePickerDecorator,
   ModeType,
   DatePickerHandle,
+  DatePickerShowTimeProps,
 } from './interface';
 
 function wrapper<P = any, T extends DatePickerHandle = DatePickerHandle>(
@@ -85,4 +86,5 @@ export {
   WeekPickerProps,
   QuarterPickerProps,
   RangePickerProps,
+  DatePickerShowTimeProps,
 };

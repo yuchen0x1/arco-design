@@ -6,6 +6,15 @@ import { Omit } from '../_util/type';
 
 export type CalendarValue = number | string | Date | Dayjs;
 
+export type DatePickerShowTimeProps = TimePickerProps & {
+  /**
+   * @zh 打开弹窗时默认展示时间选择面板。
+   * @en Whether to show the time panel when the popup is opened.
+   * @defaultValue false
+   */
+  openTimePanel?: boolean;
+};
+
 export type ShortcutType = {
   text: ReactNode;
   value: () => Dayjs | Dayjs[];
@@ -282,7 +291,7 @@ export interface BaseDatePickerProps {
    * @zh 是否增加时间选择
    * @en Whether to show time selection
    */
-  showTime?: boolean | TimePickerProps;
+  showTime?: boolean | DatePickerShowTimeProps;
   /**
    * @zh 时间显示的参数，参考 [TimePickerProps](/react/components/time-picker)，作用同 `showTime`。
    * @en Parameters of TimePicker, refer to [TimePickerProps](/react/components/time-picker), which has the same function as `showTime`.
@@ -399,7 +408,7 @@ export interface BaseQuarterPickerProps {
 
 export type QuarterPickerProps = BaseQuarterPickerProps & PickerProps;
 
-export type TimePickerRangeProps = Omit<TimePickerProps, 'defaultValue'> & {
+export type TimePickerRangeProps = Omit<DatePickerShowTimeProps, 'defaultValue'> & {
   defaultValue?: CalendarValue[];
 };
 

@@ -1,3 +1,11 @@
+## 2.66.21
+
+2026-11-24
+
+### 🐛 BugFix
+
+- Preserve empty `Form.List` values as `[]` in submission results so they match `onValuesChange`.([#3181](https://github.com/arco-design/arco-design/issues/3181))
+
 ## 2.66.15
 
 2026-05-08

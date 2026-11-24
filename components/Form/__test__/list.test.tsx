@@ -427,6 +427,75 @@ describe('FormList test', () => {
     expect(formRef.getFieldsValue()).toEqual(submitValues);
   });
 
+  it('submits an empty list as an empty array', async () => {
+    let formRef;
+    let submitValues;
+    let changedValues;
+    const wrapper = mountForm(
+      <Form
+        ref={(node) => (formRef = node)}
+        initialValues={{ posts: [{ name: 'draft' }] }}
+        onSubmit={(values) => {
+          submitValues = values;
+        }}
+        onValuesChange={(_, values) => {
+          changedValues = values;
+        }}
+      >
+        <Form.List field="posts">
+          {(fields, { add, remove }) => (
+            <div>
+              {fields.map((item, index) => (
+                <div className="form-list-item" key={item.key}>
+                  <Form.Item field={`${item.field}.name`}>
+                    <Input />
+                  </Form.Item>
+                  <Button className="remove-button" onClick={() => remove(index)}>
+                    Remove
+                  </Button>
+                </div>
+              ))}
+              <Button className="add-button" onClick={() => add()}>
+                Add
+              </Button>
+            </div>
+          )}
+        </Form.List>
+      </Form>
+    );
+
+    formRef.submit();
+    await sleep(10);
+    expect(submitValues).toEqual({ posts: [{ name: 'draft' }] });
+
+    fireEvent.click(wrapper.find('Button.remove-button')[0]);
+    expect(changedValues).toEqual({ posts: [] });
+
+    formRef.submit();
+    await sleep(10);
+    expect(submitValues).toEqual(changedValues);
+    await expect(formRef.validate()).resolves.toEqual(changedValues);
+  });
+
+  it('does not submit an untouched empty list', async () => {
+    let formRef;
+    let submitValues;
+    mountForm(
+      <Form
+        ref={(node) => (formRef = node)}
+        onSubmit={(values) => {
+          submitValues = values;
+        }}
+      >
+        <Form.List field="posts">{() => null}</Form.List>
+      </Form>
+    );
+
+    formRef.submit();
+    await sleep(10);
+    expect(submitValues).toEqual({});
+  });
+
   it('move method', async () => {
     const defaultUsers = [
       { name: 'a', age: 20 },

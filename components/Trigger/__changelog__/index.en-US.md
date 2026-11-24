@@ -1,3 +1,11 @@
+## 2.66.21
+
+2026-11-24
+
+### 🐛 BugFix
+
+- Read refs from `props.ref` on React 19 to avoid deprecated `element.ref` access while preserving React 16-18 compatibility.([#2891](https://github.com/arco-design/arco-design/issues/2891))
+
 ## 2.66.16
 
 2026-07-14

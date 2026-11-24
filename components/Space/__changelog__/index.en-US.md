@@ -1,3 +1,11 @@
+## 2.66.21
+
+2026-11-24
+
+### 🐛 BugFix
+
+- Detect `Fragment` children in `Space` under React 19 without depending on version-specific `react-is` symbols.([#2971](https://github.com/arco-design/arco-design/issues/2971))
+
 ## 2.58.1
 
 2024-01-05

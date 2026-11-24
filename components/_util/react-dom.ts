@@ -1,6 +1,6 @@
 import { Component, ReactElement, ReactInstance } from 'react';
 import ReactDOM from 'react-dom';
-import { isObject, isFunction, isReact18 } from './is';
+import { isObject, isFunction, isReact18, isReact19 } from './is';
 import warning from './warning';
 
 type CreateRootFnType = (container: Element | DocumentFragment) => {
@@ -129,14 +129,22 @@ export const findDOMNode = (element: any, instance?: ReactInstance) => {
   return null;
 };
 
+export const getElementRef = (element: any) => {
+  if (!element) {
+    return undefined;
+  }
+  return isReact19 ? element.props?.ref : element.ref;
+};
+
 // 回调children的原始 ref ，适配函数 ref or ref.current 场景
 export const callbackOriginRef = (children: any, node) => {
-  if (children && children.ref) {
-    if (isFunction(children.ref)) {
-      children?.ref(node);
+  const ref = getElementRef(children);
+  if (ref) {
+    if (isFunction(ref)) {
+      ref(node);
     }
-    if ('current' in children.ref) {
-      children.ref.current = node;
+    if ('current' in ref) {
+      ref.current = node;
     }
   }
 };

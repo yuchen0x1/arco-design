@@ -31,6 +31,7 @@ import useIsFirstRender from '../../_util/hooks/useIsFirstRender';
 import useForceUpdate from '../../_util/hooks/useForceUpdate';
 import ResizeObserver from '../../_util/resizeObserver';
 import useIsomorphicLayoutEffect from '../../_util/hooks/useIsomorphicLayoutEffect';
+import { getElementRef } from '../../_util/react-dom';
 
 export type RenderFunc<T> = (
   item: T,
@@ -652,8 +653,9 @@ const VirtualList: React.ForwardRefExoticComponent<
             }
           }
 
-          if (isFunction((node as unknown as any)?.ref)) {
-            (node as unknown as any)?.ref(ele);
+          const ref = getElementRef(node);
+          if (isFunction(ref)) {
+            ref(ele);
           }
         },
       });

@@ -64,7 +64,7 @@
 |---|---|---|---|
 |showNowBtn|是否显示 `showTime` 时，选择当前时间的按钮。|boolean |`true`|
 |defaultValue|默认日期|[CalendarValue](#calendarvalue) |`-`|
-|showTime|是否增加时间选择|boolean \| [TimePickerProps](#timepickerprops) |`-`|
+|showTime|是否增加时间选择。对象参数支持 `openTimePanel`，打开弹窗时默认展示时间面板。|boolean \| [DatePickerShowTimeProps](#datepickershowtimeprops) |`-`|
 |timepickerProps|时间显示的参数，参考 [TimePickerProps](/react/components/time-picker)，作用同 `showTime`。|[TimePickerProps](#timepickerprops) |`-`|
 |value|日历组件的值|[CalendarValue](#calendarvalue) |`-`|
 |disabledTime|不可选取的时间|(current?: Dayjs) => [DisabledTimeProps](#disabledtimeprops) |`-`|
@@ -118,7 +118,7 @@
 |inputProps|原生输入框属性|React.InputHTMLAttributes&lt;HTMLInputElement&gt;[] |`-`|2.60.0|
 |pickerValue|面板显示的日期。|[CalendarValue](#calendarvalue)[] |`-`|2.9.0|
 |placeholder|提示文案|string[] |`-`|-|
-|showTime|是否增加时间选择，如果传入的是个对象，会把参数传给内置的 TimePicker。|boolean \| [TimePickerRangeProps](#timepickerrangeprops) |`-`|-|
+|showTime|是否增加时间选择。如果传入对象参数，会把参数传给内置的 TimePicker；`openTimePanel` 可控制打开弹窗时默认展示时间面板。|boolean \| [TimePickerRangeProps](#timepickerrangeprops) |`-`|-|
 |timepickerProps|时间显示的参数，参考 [TimePickerProps](/react/components/time-picker)，作用同 `showTime`。|[TimePickerProps](#timepickerprops) |`-`|-|
 |value|日历组件的值|[CalendarValue](#calendarvalue)[] |`-`|-|
 |onChange|日历组件值发生改变时的回调|(dateString: string[], date: Dayjs[]) => void |`-`|-|
@@ -146,6 +146,14 @@ export type CalendarValue = number | string | Date | Dayjs;
 export type TimePickerProps = BaseTimePickerProps & PickerProps;
 ```
 
+### DatePickerShowTimeProps
+
+```js
+export type DatePickerShowTimeProps = TimePickerProps & {
+  openTimePanel?: boolean;
+};
+```
+
 ### DisabledTimeProps
 
 ```js
@@ -159,7 +167,7 @@ export type DisabledTimeProps = {
 ### TimePickerRangeProps
 
 ```js
-export type TimePickerRangeProps = Omit<TimePickerProps, "defaultValue"> & {
+export type TimePickerRangeProps = Omit<DatePickerShowTimeProps, "defaultValue"> & {
   defaultValue?: CalendarValue[];
 };
 ```

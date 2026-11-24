@@ -106,6 +106,7 @@ describe('DatePicker', () => {
     const component = render(<DatePicker showTime />);
 
     fireEvent.click(component.container.firstChild!);
+    expect(component.find('.arco-timepicker-list')).toHaveLength(0);
 
     function getTimePickerCell(index, cellIndex) {
       return component
@@ -120,6 +121,7 @@ describe('DatePicker', () => {
     }
     fireEvent.click(component.find('button.arco-picker-btn-select-time')[0]);
 
+    expect(component.find('.arco-timepicker-list').length).toBeGreaterThan(0);
     checkTime(component, '20', '32', '59');
 
     fireEvent.click(getTimePickerCell(0, 10));
@@ -150,6 +152,23 @@ describe('DatePicker', () => {
     fireEvent.click(component.find('.arco-picker-footer-btn-wrapper .arco-btn-primary')[0]);
 
     expect(getInputValue()).toBe('2020-04-10 20:32:59');
+  });
+
+  it('openTimePanel', () => {
+    const component = render(<DatePicker showTime={{ openTimePanel: true }} />);
+
+    fireEvent.click(component.container.firstChild!);
+
+    expect(component.find('.arco-timepicker-list').length).toBeGreaterThan(0);
+  });
+
+  it('openTimePanel with an initially visible popup', async () => {
+    jest.useRealTimers();
+    const component = render(<DatePicker popupVisible showTime={{ openTimePanel: true }} />);
+
+    await sleep(100);
+
+    expect(component.find('.arco-timepicker-list').length).toBeGreaterThan(0);
   });
 
   it('hideNotInViewDates', () => {

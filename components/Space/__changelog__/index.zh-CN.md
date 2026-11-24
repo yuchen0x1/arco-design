@@ -1,3 +1,11 @@
+## 2.66.21
+
+2026-11-24
+
+### 🐛 问题修复
+
+- 修复 React 19 下 `Space` 无法识别 `Fragment` 子元素的问题([#2971](https://github.com/arco-design/arco-design/issues/2971))
+
 ## 2.58.1
 
 2024-01-05

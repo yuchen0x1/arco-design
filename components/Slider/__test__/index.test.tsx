@@ -285,6 +285,52 @@ describe('Slider ', () => {
     expect(dots[3].style.left).toEqual(`100%`);
   });
 
+  it('handles the maximum position when custom interval widths accumulate imprecisely', () => {
+    const onChange = jest.fn();
+    const widths = [0.01, 0.06, 0.93];
+    const map: { [key: string]: any } = {};
+    const addEventListener = window.addEventListener;
+    window.addEventListener = jest.fn((event: string, callback: any) => {
+      map[event] = callback;
+    });
+    const component = render(
+      <Slider
+        min={0}
+        max={3}
+        marks={{ 1: '1', 2: '2' }}
+        getIntervalConfig={(_, index) => ({ width: widths[index] })}
+        onChange={onChange}
+      />
+    );
+    const road = component.container.querySelector('.arco-slider-road') as HTMLElement;
+    jest.spyOn(road, 'getBoundingClientRect').mockReturnValue({
+      left: 0,
+      top: 0,
+      right: 100,
+      bottom: 10,
+      width: 100,
+      height: 10,
+      x: 0,
+      y: 0,
+      toJSON: () => ({}),
+    });
+
+    try {
+      act(() => {
+        fireEvent.mouseDown(component.container.querySelector('.arco-slider-button'));
+      });
+      expect(() => {
+        act(() => {
+          map.mousemove({ clientX: 100, clientY: 0 });
+        });
+      }).not.toThrow();
+
+      expect(onChange).toHaveBeenCalledWith(3);
+    } finally {
+      window.addEventListener = addEventListener;
+    }
+  });
+
   it('should render correctly when showInput is Object', () => {
     const mockChange = jest.fn();
     const mockBlur = jest.fn();

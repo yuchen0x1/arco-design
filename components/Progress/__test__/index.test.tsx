@@ -8,6 +8,16 @@ mountTest(Progress);
 componentConfigTest(Progress, 'Progress');
 
 describe('Progress', () => {
+  it('shows the success check for mini circles only at 100%', () => {
+    const wrapper = render(<Progress percent={20} size="mini" status="success" type="circle" />);
+    expect(wrapper.querySelector('.arco-progress-circle-svg')).toBeTruthy();
+    expect(wrapper.querySelector('.arco-icon-check')).toBeNull();
+
+    wrapper.rerender(<Progress percent={100} size="mini" status="success" type="circle" />);
+    expect(wrapper.querySelector('.arco-progress-circle-svg')).toBeNull();
+    expect(wrapper.querySelector('.arco-icon-check')).toBeTruthy();
+  });
+
   it('preserves the accessible name and value through every rendering mode', () => {
     const { getByRole, rerender } = render(<Progress aria-label="Upload" percent={-10} />);
     const progress = () => getByRole('progressbar', { name: 'Upload' });

@@ -59,6 +59,7 @@ export type {
   WeekPickerProps,
   QuarterPickerProps,
   RangePickerProps,
+  DatePickerShowTimeProps,
 } from './DatePicker/interface';
 export { default as DatePicker } from './DatePicker';
 

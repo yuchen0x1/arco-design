@@ -1,3 +1,11 @@
+## 2.66.21
+
+2026-11-24
+
+### 🐛 BugFix
+
+- Prevent an error at the Slider endpoint when custom interval widths accumulate floating-point rounding error.([#2986](https://github.com/arco-design/arco-design/issues/2986))
+
 ## 2.62.0
 
 2024-04-26

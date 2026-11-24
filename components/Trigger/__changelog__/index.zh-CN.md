@@ -1,3 +1,11 @@
+## 2.66.21
+
+2026-11-24
+
+### 🐛 问题修复
+
+- 兼容 React 19 的 `ref` 普通属性行为，避免读取 `element.ref` 触发弃用警告，同时保持 React 16–18 兼容([#2891](https://github.com/arco-design/arco-design/issues/2891))
+
 ## 2.66.16
 
 2026-07-14

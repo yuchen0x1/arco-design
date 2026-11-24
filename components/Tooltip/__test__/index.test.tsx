@@ -53,6 +53,22 @@ describe('Tooltip', () => {
     expect(wrapper.find('.arco-tooltip-content-inner').length).not.toBe(0);
   });
 
+  it('renders a single-element array child', () => {
+    const wrapper = render(
+      <Tooltip trigger="hover" content="Tooltip content">
+        {[<span key="child">a</span>]}
+      </Tooltip>
+    );
+
+    fireEvent.mouseEnter(screen.getByText('a'));
+    jest.runAllTimers();
+
+    expect(screen.getByText('a')).toBeTruthy();
+    expect(wrapper.querySelector('.arco-tooltip-content-inner')?.textContent).toBe(
+      'Tooltip content'
+    );
+  });
+
   it('showArrow property', () => {
     const wrapper = render(
       <Tooltip
