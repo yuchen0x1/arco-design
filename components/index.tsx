@@ -230,5 +230,5 @@ export { default as Watermark } from './Watermark';
 export type { ImageProps, ImagePreviewProps, ImagePreviewActionProps, ImagePreviewGroupProps } from './Image/interface';
 export { default as Image } from './Image';
 
-export const version = '2.66.21';
+export const version = '2.66.22';
 

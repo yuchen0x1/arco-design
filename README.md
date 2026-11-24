@@ -54,7 +54,7 @@ All components are written in TypeScript so it's type friendly.
 Fork releases are published as verified GitHub Release archives. The npm package with the same name belongs to the upstream project and may contain a different version.
 
 ```bash
-npm install https://github.com/yuchen0x1/arco-design/releases/download/v2.66.21/arco-design-web-react-2.66.21.tgz
+npm install https://github.com/yuchen0x1/arco-design/releases/download/v2.66.22/arco-design-web-react-2.66.22.tgz
 ```
 
 Verify `SHA256SUMS` and the GitHub build attestation from the release page before production use.

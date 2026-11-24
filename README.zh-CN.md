@@ -54,7 +54,7 @@ https://user-images.githubusercontent.com/19399269/141435899-e453cf75-d50f-4549-
 Fork 版本通过 GitHub Release 发布校验过的压缩包。同名 npm 包属于上游项目，版本可能不同。
 
 ```bash
-npm install https://github.com/yuchen0x1/arco-design/releases/download/v2.66.21/arco-design-web-react-2.66.21.tgz
+npm install https://github.com/yuchen0x1/arco-design/releases/download/v2.66.22/arco-design-web-react-2.66.22.tgz
 ```
 
 生产环境使用前，请从 Release 页面校验 `SHA256SUMS` 和构建来源证明。
