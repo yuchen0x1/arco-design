@@ -4138,7 +4138,7 @@ atob@^2.1.2:
   resolved "https://registry.npmjs.org/atob/-/atob-2.1.2.tgz"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
-autoprefixer@10.4.20, autoprefixer@^8.6.3, autoprefixer@^9.8.6:
+autoprefixer@10.4.20:
   version "10.4.20"
   resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-10.4.20.tgz#5caec14d43976ef42e32dcb4bd62878e96be5b3b"
   integrity sha512-XY25y5xSv/wEoqzDyXXME4AFfkZI0P23z6Fs3YgymDnKJkCGOnkL0iTxCa85UTqaSgfcqyf3UA6+c7wUvx/16g==
@@ -4149,6 +4149,31 @@ autoprefixer@10.4.20, autoprefixer@^8.6.3, autoprefixer@^9.8.6:
     normalize-range "^0.1.2"
     picocolors "^1.0.1"
     postcss-value-parser "^4.2.0"
+
+autoprefixer@^8.6.3:
+  version "8.6.5"
+  resolved "https://registry.npmjs.org/autoprefixer/-/autoprefixer-8.6.5.tgz"
+  integrity sha512-PLWJN3Xo/rycNkx+mp8iBDMTm3FeWe4VmYaZDSqL5QQB9sLsQkG5k8n+LNDFnhh9kdq2K+egL/icpctOmDHwig==
+  dependencies:
+    browserslist "^3.2.8"
+    caniuse-lite "^1.0.30000864"
+    normalize-range "^0.1.2"
+    num2fraction "^1.2.2"
+    postcss "^6.0.23"
+    postcss-value-parser "^3.2.3"
+
+autoprefixer@^9.8.6:
+  version "9.8.8"
+  resolved "https://registry.npmjs.org/autoprefixer/-/autoprefixer-9.8.8.tgz"
+  integrity sha512-eM9d/swFopRt5gdJ7jrpCwgvEMIayITpojhkkSMRsFHYuH5bkSQ4p/9qTEHtmNudUZh22Tehu7I6CxAW0IXTKA==
+  dependencies:
+    browserslist "^4.12.0"
+    caniuse-lite "^1.0.30001109"
+    normalize-range "^0.1.2"
+    num2fraction "^1.2.2"
+    picocolors "^0.2.1"
+    postcss "^7.0.32"
+    postcss-value-parser "^4.1.0"
 
 available-typed-arrays@^1.0.7:
   version "1.0.7"
@@ -4655,7 +4680,7 @@ browserify-zlib@^0.2.0:
   dependencies:
     pako "~1.0.5"
 
-browserslist@4.14.2, browserslist@4.28.7, browserslist@^4.0.0, browserslist@^4.16.6, browserslist@^4.17.6, browserslist@^4.23.3, browserslist@^4.24.0:
+browserslist@4.14.2, browserslist@4.28.7, browserslist@^3.2.8, browserslist@^4.0.0, browserslist@^4.12.0, browserslist@^4.16.6, browserslist@^4.17.6, browserslist@^4.23.3, browserslist@^4.24.0:
   version "4.28.7"
   resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-4.28.7.tgz#409046517fccd2e51cdc20f077454b7141184028"
   integrity sha512-JxV13hNrFxqjOc8alRbq9dK1MM79NEXYpma2B2J4wAtpWS5zIEIKqWPGCl7N4o7Uc7B7itylh7SuDujATRyyTw==
@@ -4937,7 +4962,7 @@ caniuse-lite@^1.0.0:
   resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001481.tgz"
   integrity sha512-KCqHwRnaa1InZBtqXzP98LPg0ajCVujMKjqKDhZEthIpAsJl/YEIa3YvXjGXPVqzZVguccuu7ga9KOE1J9rKPQ==
 
-caniuse-lite@^1.0.30001646, caniuse-lite@^1.0.30001806:
+caniuse-lite@^1.0.30000864, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001646, caniuse-lite@^1.0.30001806:
   version "1.0.30001827"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001827.tgz#42db7cf8d15cbd4d66e2f4fde885009565f8bdeb"
   integrity sha512-YWEDr46gSO81M8w6uPbaIy4++IXsirx2asUqvllNiD4BPf75ibxclUjWEqp8ObCenRv+UM2n5Y8xuRPT8V8FrQ==
@@ -11783,6 +11808,11 @@ nth-check@^2.0.0:
   dependencies:
     boolbase "^1.0.0"
 
+num2fraction@^1.2.2:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/num2fraction/-/num2fraction-1.3.0.tgz#fca19b3c7170a932f2bed4d6edc569158175757a"
+  integrity sha512-rclir6MW4M4Hinz/AnripNvEbz8HRxJ9Qkrtj0V8ivgEsfpxGWGbXDkfCT4IJLEWegu4pvO9qibWpeHkODkGqg==
+
 number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "https://registry.npmjs.org/number-is-nan/-/number-is-nan-1.0.1.tgz"
@@ -13005,7 +13035,7 @@ postcss-unique-selectors@^4.0.1:
     postcss "^7.0.0"
     uniqs "^2.0.0"
 
-postcss-value-parser@^3.0.0:
+postcss-value-parser@^3.0.0, postcss-value-parser@^3.2.3:
   version "3.3.1"
   resolved "https://registry.npmjs.org/postcss-value-parser/-/postcss-value-parser-3.3.1.tgz"
   integrity sha512-pISE66AbVkp4fDQ7VHBwRNXzAAKJjw4Vw7nWI/+Q3vuly7SNfgYXvm6i5IgFylHGK5sP/xHAbB7N49OS4gWNyQ==
@@ -13024,7 +13054,7 @@ postcss@8.5.23, postcss@^8.1.2, postcss@^8.3.11:
     picocolors "^1.1.1"
     source-map-js "^1.2.1"
 
-postcss@^6.0.22:
+postcss@^6.0.22, postcss@^6.0.23:
   version "6.0.23"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-6.0.23.tgz#61c82cc328ac60e677645f979054eb98bc0e3324"
   integrity sha512-soOk1h6J3VMTZtVeVpv15/Hpdl2cBLX3CAw4TAbkpTJiNPk9YP/zWcD1ND+xEtvyuuvKzbxliTOIyvkSeSJ6ag==
