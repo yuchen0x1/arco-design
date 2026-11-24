@@ -59,7 +59,8 @@ jobs:
             react: 19.2.0
           - os: windows-latest
             react: 18.3.1
-          - os: macos-latest
+          # Pin this package smoke test to the supported Intel image instead of latest ARM64.
+          - os: macos-15-intel
             react: 18.3.1
     runs-on: ${{ matrix.os }}
     timeout-minutes: 12
