@@ -49,6 +49,7 @@ exports[`renders Alert/demo/action.md correctly 1`] = `
       </button>
     </div>
     <button
+      aria-label="Close"
       class="arco-alert-close-btn"
       type="button"
     >
@@ -120,6 +121,7 @@ exports[`renders Alert/demo/action.md correctly 1`] = `
       </button>
     </div>
     <button
+      aria-label="Close"
       class="arco-alert-close-btn"
       type="button"
     >
@@ -289,6 +291,7 @@ exports[`renders Alert/demo/banner.md correctly 1`] = `
       </div>
     </div>
     <button
+      aria-label="Close"
       class="arco-alert-close-btn"
       type="button"
     >
@@ -471,6 +474,7 @@ exports[`renders Alert/demo/closable.md correctly 1`] = `
           </div>
         </div>
         <button
+          aria-label="Close"
           class="arco-alert-close-btn"
           type="button"
         >
@@ -530,6 +534,7 @@ exports[`renders Alert/demo/closable.md correctly 1`] = `
           </div>
         </div>
         <button
+          aria-label="Close"
           class="arco-alert-close-btn"
           type="button"
         >
@@ -589,6 +594,7 @@ exports[`renders Alert/demo/closable.md correctly 1`] = `
           </div>
         </div>
         <button
+          aria-label="Close"
           class="arco-alert-close-btn"
           type="button"
         >
@@ -648,6 +654,7 @@ exports[`renders Alert/demo/closable.md correctly 1`] = `
           </div>
         </div>
         <button
+          aria-label="Close"
           class="arco-alert-close-btn"
           type="button"
         >
@@ -716,6 +723,7 @@ exports[`renders Alert/demo/closeElement.md correctly 1`] = `
         </div>
       </div>
       <button
+        aria-label="Close"
         class="arco-alert-close-btn"
         type="button"
       >
@@ -775,6 +783,7 @@ exports[`renders Alert/demo/closeElement.md correctly 1`] = `
         </div>
       </div>
       <button
+        aria-label="Close"
         class="arco-alert-close-btn"
         type="button"
       >

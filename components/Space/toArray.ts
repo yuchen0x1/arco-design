@@ -1,5 +1,5 @@
 import React from 'react';
-import { isFragment } from 'react-is';
+import { isFragment } from '../_util/is';
 
 export default function toArray(children) {
   let childrenList = [];

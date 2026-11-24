@@ -1,4 +1,4 @@
-import React, { Component, ReactNode, CSSProperties, createRef } from 'react';
+import React, { Component, ReactNode, CSSProperties, createRef, isValidElement } from 'react';
 import IconClose from '../../icon/react-icon/IconClose';
 import IconCheckCircleFill from '../../icon/react-icon/IconCheckCircleFill';
 import IconCloseCircleFill from '../../icon/react-icon/IconCloseCircleFill';
@@ -10,6 +10,20 @@ import IconHover from '../_class/icon-hover';
 import { IconContext } from '../../icon/react-icon/context';
 import ConfigProvider from '../ConfigProvider';
 import { ConfigContext } from '../ConfigProvider/context';
+
+const INTERACTIVE_TAGS = ['a', 'button', 'input', 'select', 'textarea', 'summary', 'details'];
+
+function isInteractiveNode(node: ReactNode): boolean {
+  if (!isValidElement(node)) {
+    return false;
+  }
+  const element = node as React.ReactElement<any>;
+  return (
+    (typeof element.type === 'string' && INTERACTIVE_TAGS.includes(element.type)) ||
+    (typeof element.props?.role === 'string' &&
+      ['button', 'link', 'menuitem', 'tab', 'checkbox', 'radio'].includes(element.props.role))
+  );
+}
 
 export interface NoticeProps {
   style?: CSSProperties;
@@ -95,7 +109,7 @@ class Notice extends Component<NoticeProps, {}> {
     }
   };
 
-  onClose: React.MouseEventHandler<HTMLSpanElement> = () => {
+  onClose: React.MouseEventHandler<HTMLElement> = () => {
     this.props.onClose && this.props.onClose(this.props.id);
   };
 
@@ -133,6 +147,33 @@ class Notice extends Component<NoticeProps, {}> {
     return <span className={`${prefixCls}-icon`}>{content}</span>;
   };
 
+  renderCloseControl = (defaultIcon: ReactNode) => {
+    const { prefixCls, closeIcon } = this.props;
+    const className = `${prefixCls}-close-btn`;
+
+    if (closeIcon === undefined) {
+      return (
+        <button type="button" onClick={this.onClose} aria-label="Close" className={className}>
+          <IconHover prefix={prefixCls}>{defaultIcon}</IconHover>
+        </button>
+      );
+    }
+
+    if (isInteractiveNode(closeIcon)) {
+      return (
+        <span onClick={this.onClose} className={className}>
+          {closeIcon}
+        </span>
+      );
+    }
+
+    return (
+      <button type="button" onClick={this.onClose} aria-label="Close" className={className}>
+        {closeIcon}
+      </button>
+    );
+  };
+
   onMouseEnter = () => {
     this.removeTimer();
   };
@@ -159,7 +200,6 @@ class Notice extends Component<NoticeProps, {}> {
       noticeType,
       iconPrefix,
       rtl,
-      closeIcon,
       classPrefixCls,
     } = this.props;
 
@@ -198,20 +238,7 @@ class Notice extends Component<NoticeProps, {}> {
             <div className={classNames} style={style} role="alert">
               {shouldRenderIcon && this.renderIcon()}
               <span className={`${prefixCls}-content`}>{content}</span>
-              {_closable &&
-                (closeIcon !== undefined ? (
-                  <span onClick={this.onClose} className={`${prefixCls}-close-btn`}>
-                    {closeIcon}
-                  </span>
-                ) : (
-                  <IconHover
-                    prefix={prefixCls}
-                    className={`${prefixCls}-close-btn`}
-                    onClick={this.onClose}
-                  >
-                    <IconClose />
-                  </IconHover>
-                ))}
+              {_closable && this.renderCloseControl(<IconClose />)}
             </div>
           </div>
         </ConfigProvider>
@@ -234,21 +261,11 @@ class Notice extends Component<NoticeProps, {}> {
                 {btn && <div className={`${prefixCls}-btn-wrapper`}>{btn}</div>}
               </div>
               {_closable &&
-                (closeIcon !== undefined ? (
-                  <span onClick={this.onClose} className={`${prefixCls}-close-btn`}>
-                    {closeIcon}
-                  </span>
-                ) : (
-                  <IconHover
-                    prefix={prefixCls}
-                    className={`${prefixCls}-close-btn`}
-                    onClick={this.onClose}
-                  >
-                    <IconContext.Provider value={iconPrefix ? { prefixCls: iconPrefix } : {}}>
-                      <IconClose />
-                    </IconContext.Provider>
-                  </IconHover>
-                ))}
+                this.renderCloseControl(
+                  <IconContext.Provider value={iconPrefix ? { prefixCls: iconPrefix } : {}}>
+                    <IconClose />
+                  </IconContext.Provider>
+                )}
             </div>
           </div>
         </ConfigProvider>

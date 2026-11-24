@@ -1,13 +1,22 @@
 import { useRef, useEffect, DependencyList } from 'react';
 
 export default function useUpdate(fn: () => void, deps: DependencyList = []) {
-  const isDidMount = useRef(false);
+  const isFirstEffect = useRef(true);
+  const lastDeps = useRef<DependencyList>(deps);
 
   useEffect(() => {
-    if (isDidMount.current) {
+    if (isFirstEffect.current) {
+      isFirstEffect.current = false;
+      lastDeps.current = deps;
+      return;
+    }
+
+    const depsChanged =
+      lastDeps.current.length !== deps.length ||
+      deps.some((dep, index) => !Object.is(lastDeps.current[index], dep));
+    lastDeps.current = deps;
+    if (depsChanged) {
       fn();
-    } else {
-      isDidMount.current = true;
     }
   }, deps);
 }

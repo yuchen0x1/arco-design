@@ -24,7 +24,7 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
-          node-version: 16.20.2
+          node-version: 22.11.0
           cache: yarn
           cache-dependency-path: |
             yarn.lock
@@ -48,7 +48,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        include:
+          - os: ubuntu-latest
+            react: 16.14.0
+          - os: ubuntu-latest
+            react: 17.0.2
+          - os: ubuntu-latest
+            react: 18.3.1
+          - os: ubuntu-latest
+            react: 19.2.0
+          - os: windows-latest
+            react: 18.3.1
+          - os: macos-latest
+            react: 18.3.1
     runs-on: ${{ matrix.os }}
     timeout-minutes: 12
     steps:
@@ -70,6 +82,7 @@ jobs:
           cd "$RUNNER_TEMP"
           mkdir consumer && cd consumer
           npm init -y
-          npm install --ignore-scripts --no-audit --fund=false react@16.14.0 react-dom@16.14.0 "${package[0]}"
+          npm install --ignore-scripts --no-audit --fund=false \
+            "react@${{ matrix.react }}" "react-dom@${{ matrix.react }}" "${package[0]}"
           node "$GITHUB_WORKSPACE/scripts/check-consumer.js" "$version"
           npm audit --omit=dev --audit-level=high

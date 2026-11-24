@@ -1,0 +1,50 @@
+diff --git a/node_modules/arco-markdown-loader/lib/parser/marked.js b/node_modules/arco-markdown-loader/lib/parser/marked.js
+index 2bcfe16..d785d8e 100644
+--- a/node_modules/arco-markdown-loader/lib/parser/marked.js
++++ b/node_modules/arco-markdown-loader/lib/parser/marked.js
+@@ -6,7 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
+ const marked_1 = __importDefault(require("marked"));
+ const highlight_1 = __importDefault(require("./highlight"));
+ const react_1 = require("../compiler/react");
+-const renderer = new marked_1.default.Renderer();
++const marked = marked_1.default || marked_1.marked || marked_1;
++const renderer = new marked.Renderer();
+ renderer.code = function (code, infostring, escaped) {
+     const lang = (infostring || '').match(/\S*/)[0];
+     if (lang === 'js:react') {
+@@ -24,7 +25,7 @@ renderer.code = function (code, infostring, escaped) {
+     }
+     return `<pre class="code_block"><code class="${this.options.langPrefix}${escape(lang)}">${escaped ? code : escape(code)}</code></pre>\n`;
+ };
+-marked_1.default.setOptions({
++marked.setOptions({
+     gfm: true,
+     breaks: true,
+     renderer,
+@@ -39,12 +40,21 @@ marked_1.default.setOptions({
+ // sort table api
+ const walkTokens = (token) => {
+     if (token.type === 'table') {
+-        // delete empty row
+-        token.cells = token.cells.filter((c) => c[0]);
+-        token.tokens.cells = token.tokens.cells.filter((c) => c[0][0]);
++        if (Array.isArray(token.cells)) {
++            token.cells = token.cells.filter((c) => c[0]);
++            if (token.tokens && Array.isArray(token.tokens.cells)) {
++                token.tokens.cells = token.tokens.cells.filter((c) => c[0][0]);
++            }
++        }
++        if (Array.isArray(token.rows)) {
++            token.rows = token.rows.filter((row) => {
++                const firstCell = row[0];
++                return !!firstCell && (typeof firstCell === 'string' ? firstCell : firstCell.text);
++            });
++        }
+         // token.cells.sort((a, b) => a[0].localeCompare(b[0]));
+         // token.tokens.cells.sort((a, b) => a[0][0].text.localeCompare(b[0][0].text));
+     }
+ };
+-marked_1.default.use({ walkTokens });
+-exports.default = marked_1.default;
++marked.use({ walkTokens });
++exports.default = marked;

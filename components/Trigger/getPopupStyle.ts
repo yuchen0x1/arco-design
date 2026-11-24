@@ -384,10 +384,7 @@ export default (
     } else {
       // 限制在可见容器中。不能直接使用 mountContainer.scrollWidth，它可能已被绝对定位弹层自身撑大。
       const visibleArea = getContainerVisibleArea(mountContainer, windowWidth, boundary.left);
-      const maxLeft = Math.max(
-        0,
-        visibleArea.left + visibleArea.width - contentSize.width
-      );
+      const maxLeft = Math.max(0, visibleArea.left + visibleArea.width - contentSize.width);
       style.left = Math.min(maxLeft, style.left);
     }
 

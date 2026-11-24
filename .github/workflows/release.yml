@@ -57,5 +57,8 @@ jobs:
           set -euo pipefail
           gh release create "$GITHUB_REF_NAME" artifacts/* --draft --verify-tag --title "Arco Design React $GITHUB_REF_NAME (fork)" --notes-file "docs/releases/$GITHUB_REF_NAME.md"
           gh release download "$GITHUB_REF_NAME" --dir "$RUNNER_TEMP/verify"
-          (cd "$RUNNER_TEMP/verify" && sha256sum -c SHA256SUMS && gh attestation verify *.tgz --repo "$GITHUB_REPOSITORY")
+          (cd "$RUNNER_TEMP/verify" && sha256sum -c SHA256SUMS && gh attestation verify *.tgz \
+            --repo "$GITHUB_REPOSITORY" \
+            --signer-workflow "$GITHUB_REPOSITORY/.github/workflows/release.yml" \
+            --source-ref "refs/tags/$GITHUB_REF_NAME")
           gh release edit "$GITHUB_REF_NAME" --draft=false --latest

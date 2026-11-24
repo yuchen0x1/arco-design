@@ -1,12 +1,19 @@
 // 自定义 webpack 构建配置
+const crypto = require('crypto');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const { version } = require('../package.json');
 // const { getPWAConfig } = require('../site/config/pwa');
 
+const createHash = crypto.createHash;
+crypto.createHash = (algorithm, options) =>
+  createHash(algorithm === 'md4' ? 'sha256' : algorithm, options);
+
 // 组件 dist 打包
 exports.component = (config) => {
+  config.output.hashFunction = 'sha256';
+
   if (process.env.BUILD_TYPE === 'hooks') {
     config.entry = path.resolve(__dirname, '../hooks/src-es/index.ts');
     config.output.filename = 'arco-hooks.min.js';
@@ -25,6 +32,8 @@ exports.component = (config) => {
 
 // 图标 dist 打包
 exports.icon = (config) => {
+  config.output.hashFunction = 'sha256';
+
   config.plugins.pop();
   config.plugins.push(
     new webpack.BannerPlugin({
@@ -35,6 +44,8 @@ exports.icon = (config) => {
 
 // 官网
 exports.site = (config, env) => {
+  config.output.hashFunction = 'sha256';
+
   const isProd = env === 'prod';
   if (isProd) {
     config.output.publicPath = '/';
@@ -74,6 +85,9 @@ exports.site = (config, env) => {
   );
 
   config.resolve.alias['@arco-design/web-react'] = path.resolve(__dirname, '..');
+  config.resolve.alias['react-draggable$'] = require.resolve('react-draggable', {
+    paths: [path.resolve(__dirname, '../site')],
+  });
   // config.resolve.alias['dayjs$'] = 'moment-timezone';
   // update the react-dnd, with issue: https://github.com/facebook/react/issues/20235
   config.resolve.alias['react/jsx-runtime'] = require.resolve('react/jsx-runtime.js');

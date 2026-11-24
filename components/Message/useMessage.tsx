@@ -11,7 +11,7 @@ function useMessage(commonConfig: ConfigProps = {}): [MessageHookReturnType, JSX
   const { maxCount, duration = 3000, prefixCls: _prefixCls } = commonConfig;
   const contextHolderRef = useRef<HolderRef>();
   const holderEle = useMemo(() => <ContextHolderElement ref={contextHolderRef} />, []);
-  const messageInstance = {};
+  const messageInstance = useRef<Record<string, any>>({}).current;
   let notice;
 
   function addNotice(config: MessageProps) {

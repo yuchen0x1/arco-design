@@ -12,6 +12,8 @@
 
 基于 [Arco Design](https://arco.design/) 的 React UI 组件库。
 
+本仓库是 [`arco-design/arco-design`](https://github.com/arco-design/arco-design) 的独立增强 Fork。项目保持 Arco 的 API 与视觉体系，同时加入无障碍、React 兼容性、CI 与发布安全方面的增强。它不是官方 npm 发布渠道。
+
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/arco-design/arco-design/blob/main/LICENSE)
 [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/arco-design/awesome-arco)
 
@@ -49,21 +51,19 @@ https://user-images.githubusercontent.com/19399269/141435899-e453cf75-d50f-4549-
 
 # 安装
 
-[npm package](https://www.npmjs.com/package/@arco-design/web-react)
+Fork 版本通过 GitHub Release 发布校验过的压缩包。同名 npm 包属于上游项目，版本可能不同。
 
 ```bash
-// npm
-npm install @arco-design/web-react
-
-// yarn
-yarn add @arco-design/web-react
+npm install https://github.com/yuchen0x1/arco-design/releases/download/v2.66.21/arco-design-web-react-2.66.21.tgz
 ```
+
+生产环境使用前，请从 Release 页面校验 `SHA256SUMS` 和构建来源证明。
 
 # 例子
 
 ```typescript
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Button } from '@arco-design/web-react';
 import '@arco-design/web-react/dist/css/arco.css';
 
@@ -75,8 +75,26 @@ function App() {
   );
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+const container = document.getElementById('app');
+
+if (container) {
+  createRoot(container).render(<App />);
+}
 ```
+
+React 16/17 使用 `ReactDOM.render`；React 18/19 使用 `createRoot`。在 React 19 中以命令式方式调用 `Message`、`Notification` 或 `Modal` 时，必须引入 `@arco-design/web-react/es/_util/react-19-adapter`。
+
+# 本地开发
+
+```bash
+corepack yarn install --frozen-lockfile
+corepack yarn icon
+corepack yarn build
+corepack yarn test:client
+corepack yarn test:node
+```
+
+CI 会执行构建、单元测试、包归档和消费者安装检查。正式版本由经过验证的 `v*` Tag 创建，附带 SHA256 校验和与构建来源证明；详见 [SECURITY.md](./SECURITY.md) 和 [docs/platforms.md](./docs/platforms.md)。
 
 # 相关链接
 

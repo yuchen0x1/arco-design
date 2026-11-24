@@ -1,7 +1,7 @@
-import React, { createContext } from 'react';
+import React, { createContext, useState } from 'react';
 import Message from '..';
 import { Button, ConfigProvider } from '../..';
-import { render, $, fireEvent } from '../../../tests/util';
+import { render, $, fireEvent, act } from '../../../tests/util';
 
 describe('useMessage Test', () => {
   beforeEach(() => {
@@ -117,5 +117,34 @@ describe('useMessage Test', () => {
     fireEvent.click(wrapper.querySelector('.async-button')!);
     await Promise.resolve(null);
     expect($('.arco-message')).toHaveLength(1);
+  });
+
+  it('should keep one wrapper when the parent re-renders', async () => {
+    let messageInstance;
+    let forceRerender;
+
+    const TestComponent = () => {
+      const [, setRenderCount] = useState(0);
+      const [message, contextHolder] = Message.useMessage({});
+      messageInstance = message;
+      forceRerender = () => setRenderCount((count) => count + 1);
+
+      return <div>{contextHolder}</div>;
+    };
+
+    render(<TestComponent />);
+
+    act(() => {
+      messageInstance.info?.('before rerender');
+    });
+    act(() => {
+      forceRerender();
+    });
+    act(() => {
+      messageInstance.info?.('after rerender');
+    });
+
+    expect($('.arco-message-wrapper')).toHaveLength(1);
+    expect($('.arco-message')).toHaveLength(2);
   });
 });

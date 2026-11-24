@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, $, sleep } from '../../../tests/util';
+import { render, $, fireEvent, sleep } from '../../../tests/util';
 import Message from '..';
 import Notice from '../../_class/notice';
 import { IconMessage } from '../../../icon';
@@ -42,6 +42,35 @@ describe('open message', () => {
     });
     expect($('.arco-message').length).toBe(1);
     expect($('.arco-message .arco-message-icon .arco-icon-info-circle-fill').length).toBe(0);
+  });
+
+  it('renders an accessible default close button', () => {
+    Message.info({
+      content: 'Content',
+      closable: true,
+      duration: 0,
+    });
+
+    const closeButton = $('.arco-message-close-btn').item(0) as HTMLButtonElement;
+    expect(closeButton.tagName).toBe('BUTTON');
+    expect(closeButton.getAttribute('aria-label')).toBe('Close');
+
+    fireEvent.click(closeButton);
+    jest.runAllTimers();
+    expect($('.arco-message').length).toBe(0);
+  });
+
+  it('does not nest an interactive custom close icon inside a button', () => {
+    Message.info({
+      content: 'Content',
+      closable: true,
+      duration: 0,
+      closeIcon: <button type="button">X</button>,
+    });
+
+    const wrapper = $('.arco-message-close-btn').item(0);
+    expect(wrapper.tagName).toBe('SPAN');
+    expect(wrapper.querySelector('button')).not.toBeNull();
   });
 
   it('Muti instances number correct', () => {

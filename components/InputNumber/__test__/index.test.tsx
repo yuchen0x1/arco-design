@@ -51,6 +51,29 @@ describe('InputNumber ', () => {
     const wrapper = render(<InputNumber value="" />);
     expect(getInputValue(wrapper)).toBe('');
   });
+
+  it('renders finite ARIA values only', () => {
+    const wrapper = render(
+      <>
+        <InputNumber defaultValue={5} />
+        <InputNumber defaultValue={5} min={0} max={10} />
+      </>
+    );
+    const inputs = wrapper.find<HTMLInputElement>('.arco-input');
+
+    expect(inputs.item(0).hasAttribute('aria-valuemin')).toBe(false);
+    expect(inputs.item(0).hasAttribute('aria-valuemax')).toBe(false);
+    expect(inputs.item(1).getAttribute('aria-valuemin')).toBe('0');
+    expect(inputs.item(1).getAttribute('aria-valuemax')).toBe('10');
+  });
+
+  it('marks controlled out-of-range values as invalid', () => {
+    const wrapper = render(<InputNumber value={20} min={0} max={10} />);
+    const input = wrapper.find<HTMLInputElement>('.arco-input').item(0);
+
+    expect(input.getAttribute('aria-invalid')).toBe('true');
+    expect(input.getAttribute('aria-valuenow')).toBe('20');
+  });
   it('init value with string correctly', () => {
     const wrapper = render(<InputNumber value="8.0000" precision={2} />);
     expect(getInputValue(wrapper)).toBe('8.00');

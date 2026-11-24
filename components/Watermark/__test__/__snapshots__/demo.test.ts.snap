@@ -584,8 +584,6 @@ exports[`renders Watermark/demo/props.md correctly 1`] = `
                         class="arco-input-inner-wrapper arco-input-inner-wrapper-default"
                       >
                         <input
-                          aria-valuemax="Infinity"
-                          aria-valuemin="-Infinity"
                           aria-valuenow="100"
                           class="arco-input arco-input-size-default"
                           id="gapsX_input"
@@ -652,8 +650,6 @@ exports[`renders Watermark/demo/props.md correctly 1`] = `
                         class="arco-input-inner-wrapper arco-input-inner-wrapper-default"
                       >
                         <input
-                          aria-valuemax="Infinity"
-                          aria-valuemin="-Infinity"
                           aria-valuenow="100"
                           class="arco-input arco-input-size-default"
                           id="gapsY_input"
@@ -752,8 +748,6 @@ exports[`renders Watermark/demo/props.md correctly 1`] = `
                         class="arco-input-inner-wrapper arco-input-inner-wrapper-default"
                       >
                         <input
-                          aria-valuemax="Infinity"
-                          aria-valuemin="-Infinity"
                           class="arco-input arco-input-size-default"
                           id="offsetX_input"
                           placeholder="水平偏移"
@@ -819,8 +813,6 @@ exports[`renders Watermark/demo/props.md correctly 1`] = `
                         class="arco-input-inner-wrapper arco-input-inner-wrapper-default"
                       >
                         <input
-                          aria-valuemax="Infinity"
-                          aria-valuemin="-Infinity"
                           class="arco-input arco-input-size-default"
                           id="offsetY_input"
                           placeholder="垂直偏移"

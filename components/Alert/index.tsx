@@ -92,7 +92,12 @@ const Alert: React.ForwardRefRenderFunction<HTMLDivElement, AlertProps> = (baseP
         </div>
         {action && <div className={`${prefixCls}-action`}>{action}</div>}
         {_closable && (
-          <button type="button" onClick={onHandleClose} className={`${prefixCls}-close-btn`}>
+          <button
+            type="button"
+            onClick={onHandleClose}
+            aria-label="Close"
+            className={`${prefixCls}-close-btn`}
+          >
             {closeElement || <IconClose />}
           </button>
         )}

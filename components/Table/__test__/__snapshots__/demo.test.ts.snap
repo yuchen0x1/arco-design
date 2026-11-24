@@ -1853,6 +1853,8 @@ exports[`renders Table/demo/data-children.md correctly 1`] = `
                           class="arco-table-cell-expand-icon"
                         >
                           <button
+                            aria-expanded="false"
+                            aria-label="Expand row"
                             type="button"
                           >
                             <svg
@@ -1964,6 +1966,8 @@ exports[`renders Table/demo/data-children.md correctly 1`] = `
                           class="arco-table-cell-expand-icon"
                         >
                           <button
+                            aria-expanded="false"
+                            aria-label="Expand row"
                             type="button"
                           >
                             <svg
@@ -3518,6 +3522,8 @@ exports[`renders Table/demo/expand-sub-table.md correctly 1`] = `
                     class="arco-table-td arco-table-operation arco-table-expand-icon-cell arco-table-col-first"
                   >
                     <button
+                      aria-expanded="false"
+                      aria-label="Expand row"
                       type="button"
                     >
                       <svg
@@ -3595,6 +3601,8 @@ exports[`renders Table/demo/expand-sub-table.md correctly 1`] = `
                     class="arco-table-td arco-table-operation arco-table-expand-icon-cell arco-table-col-first"
                   >
                     <button
+                      aria-expanded="false"
+                      aria-label="Expand row"
                       type="button"
                     >
                       <svg
@@ -3672,6 +3680,8 @@ exports[`renders Table/demo/expand-sub-table.md correctly 1`] = `
                     class="arco-table-td arco-table-operation arco-table-expand-icon-cell arco-table-col-first"
                   >
                     <button
+                      aria-expanded="false"
+                      aria-label="Expand row"
                       type="button"
                     >
                       <svg
@@ -3749,6 +3759,8 @@ exports[`renders Table/demo/expand-sub-table.md correctly 1`] = `
                     class="arco-table-td arco-table-operation arco-table-expand-icon-cell arco-table-col-first"
                   >
                     <button
+                      aria-expanded="false"
+                      aria-label="Expand row"
                       type="button"
                     >
                       <svg
@@ -3826,6 +3838,8 @@ exports[`renders Table/demo/expand-sub-table.md correctly 1`] = `
                     class="arco-table-td arco-table-operation arco-table-expand-icon-cell arco-table-col-first"
                   >
                     <button
+                      aria-expanded="false"
+                      aria-label="Expand row"
                       type="button"
                     >
                       <svg
@@ -4062,6 +4076,8 @@ exports[`renders Table/demo/expandable.md correctly 1`] = `
                     class="arco-table-td arco-table-operation arco-table-expand-icon-cell arco-table-col-first"
                   >
                     <button
+                      aria-expanded="false"
+                      aria-label="Expand row"
                       type="button"
                     >
                       <svg
@@ -4139,6 +4155,8 @@ exports[`renders Table/demo/expandable.md correctly 1`] = `
                     class="arco-table-td arco-table-operation arco-table-expand-icon-cell arco-table-col-first"
                   >
                     <button
+                      aria-expanded="false"
+                      aria-label="Expand row"
                       type="button"
                     >
                       <svg
@@ -4216,6 +4234,8 @@ exports[`renders Table/demo/expandable.md correctly 1`] = `
                     class="arco-table-td arco-table-operation arco-table-expand-icon-cell arco-table-col-first"
                   >
                     <button
+                      aria-expanded="false"
+                      aria-label="Expand row"
                       type="button"
                     >
                       <svg
@@ -4352,6 +4372,8 @@ exports[`renders Table/demo/expandable.md correctly 1`] = `
                     class="arco-table-td arco-table-operation arco-table-expand-icon-cell arco-table-col-first"
                   >
                     <button
+                      aria-expanded="false"
+                      aria-label="Expand row"
                       type="button"
                     >
                       <svg
@@ -5694,6 +5716,8 @@ exports[`renders Table/demo/fixed-column.md correctly 1`] = `
                       style="left:0"
                     >
                       <button
+                        aria-expanded="false"
+                        aria-label="Expand row"
                         type="button"
                       >
                         <svg
@@ -5848,6 +5872,8 @@ exports[`renders Table/demo/fixed-column.md correctly 1`] = `
                       style="left:0"
                     >
                       <button
+                        aria-expanded="false"
+                        aria-label="Expand row"
                         type="button"
                       >
                         <svg
@@ -6002,6 +6028,8 @@ exports[`renders Table/demo/fixed-column.md correctly 1`] = `
                       style="left:0"
                     >
                       <button
+                        aria-expanded="false"
+                        aria-label="Expand row"
                         type="button"
                       >
                         <svg
@@ -6156,6 +6184,8 @@ exports[`renders Table/demo/fixed-column.md correctly 1`] = `
                       style="left:0"
                     >
                       <button
+                        aria-expanded="false"
+                        aria-label="Expand row"
                         type="button"
                       >
                         <svg
@@ -6310,6 +6340,8 @@ exports[`renders Table/demo/fixed-column.md correctly 1`] = `
                       style="left:0"
                     >
                       <button
+                        aria-expanded="false"
+                        aria-label="Expand row"
                         type="button"
                       >
                         <svg
@@ -8944,6 +8976,8 @@ exports[`renders Table/demo/operations.md correctly 1`] = `
                     style="left:80px"
                   >
                     <button
+                      aria-expanded="false"
+                      aria-label="Expand row"
                       type="button"
                     >
                       <svg
@@ -9065,6 +9099,8 @@ exports[`renders Table/demo/operations.md correctly 1`] = `
                     style="left:80px"
                   >
                     <button
+                      aria-expanded="false"
+                      aria-label="Expand row"
                       type="button"
                     >
                       <svg
@@ -9186,6 +9222,8 @@ exports[`renders Table/demo/operations.md correctly 1`] = `
                     style="left:80px"
                   >
                     <button
+                      aria-expanded="false"
+                      aria-label="Expand row"
                       type="button"
                     >
                       <svg
@@ -9412,6 +9450,8 @@ exports[`renders Table/demo/operations.md correctly 1`] = `
                     style="left:80px"
                   >
                     <button
+                      aria-expanded="false"
+                      aria-label="Expand row"
                       type="button"
                     >
                       <svg

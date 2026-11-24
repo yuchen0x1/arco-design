@@ -1799,8 +1799,6 @@ exports[`renders Slider/demo/set-range.md correctly 1`] = `
           class="arco-input-inner-wrapper arco-input-inner-wrapper-default"
         >
           <input
-            aria-valuemax="Infinity"
-            aria-valuemin="-Infinity"
             aria-valuenow="0"
             class="arco-input arco-input-size-default"
             role="spinbutton"
@@ -1899,8 +1897,6 @@ exports[`renders Slider/demo/set-range.md correctly 1`] = `
           class="arco-input-inner-wrapper arco-input-inner-wrapper-default"
         >
           <input
-            aria-valuemax="Infinity"
-            aria-valuemin="-Infinity"
             aria-valuenow="100"
             class="arco-input arco-input-size-default"
             role="spinbutton"

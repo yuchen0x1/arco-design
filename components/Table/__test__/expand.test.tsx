@@ -41,6 +41,14 @@ describe('Table expand', () => {
     expect(component.find('tr.arco-table-expand-content')).toHaveLength(1);
     expect(component.find('table tbody tr')).toHaveLength(6);
 
+    const expandedButton = component.find('table td.arco-table-expand-icon-cell > button').item(1);
+    expect(expandedButton.getAttribute('aria-label')).toBe('Collapse row');
+    expect(expandedButton.getAttribute('aria-expanded')).toBe('true');
+
+    const collapsedButton = component.find('table td.arco-table-expand-icon-cell > button').item(0);
+    expect(collapsedButton.getAttribute('aria-label')).toBe('Expand row');
+    expect(collapsedButton.getAttribute('aria-expanded')).toBe('false');
+
     expect(onRowClick).not.toBeCalled();
 
     const expandedRowTd = component.find('table tbody tr').item(2).querySelectorAll('td');

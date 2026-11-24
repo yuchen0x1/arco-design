@@ -35,4 +35,12 @@ describe('Alert', () => {
     jest.runAllTimers();
     expect(afterCloseFn.mock.calls.length).toBe(1);
   });
+
+  it('exposes an accessible close button', () => {
+    const alert = render(<Alert closable title="Title" content="Content" />);
+    const closeButton = alert.querySelector<HTMLButtonElement>('button.arco-alert-close-btn');
+
+    expect(closeButton).not.toBeNull();
+    expect(closeButton.getAttribute('aria-label')).toBe('Close');
+  });
 });

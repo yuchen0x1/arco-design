@@ -7,5 +7,8 @@ const entryFileContent = fs.readFileSync(entryFilePath, 'utf8');
 
 fs.writeFileSync(
   entryFilePath,
-  entryFileContent.replace(/export const version = '.*';/, `export const version = '${version}';`)
+  entryFileContent.replace(
+    /export const version = '[^']*';/,
+    `export const version = '${version}';`
+  )
 );

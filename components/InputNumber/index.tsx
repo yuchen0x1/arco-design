@@ -286,9 +286,10 @@ function InputNumber(baseProps: InputNumberProps, ref) {
     <Input
       _ignorePropsFromGlobal
       role="spinbutton"
-      aria-valuemax={max}
-      aria-valuemin={min}
-      aria-valuenow={value.isEmpty ? undefined : value.toNumber()}
+      aria-valuemax={Number.isFinite(max) ? max : undefined}
+      aria-valuemin={Number.isFinite(min) ? min : undefined}
+      aria-valuenow={value.isEmpty || value.isInvalid ? undefined : value.toNumber()}
+      aria-invalid={!value.isEmpty && isOutOfRange ? true : undefined}
       {...omit(rest, ['allowClear'])}
       {...inputEventHandlers}
       style={style}

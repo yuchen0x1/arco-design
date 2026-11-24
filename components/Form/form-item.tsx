@@ -97,7 +97,7 @@ const Item = <
   FieldKey extends KeyType = keyof FormData
 >(
   props: PropsWithChildren<FormItemProps<FormData, FieldValue, FieldKey>>,
-  ref: React.Ref<(typeof Row)['prototype']>
+  ref: React.Ref<typeof Row['prototype']>
 ) => {
   const { getPrefixCls, prefixCls: prefix } = useContext(ConfigContext);
   const topFormContext = useContext(RawFormItemContext);
@@ -158,8 +158,6 @@ const Item = <
 
     return () => {
       isDestroyed.current = true;
-      setErrors(null);
-      setWarnings(null);
     };
   }, []);
 
@@ -395,6 +393,6 @@ export default ItemComponent as <
   FieldKey extends KeyType = keyof FormData
 >(
   props: FormItemProps<FormData, FieldValue, FieldKey> & {
-    ref?: React.Ref<(typeof Row)['prototype']>;
+    ref?: React.Ref<typeof Row['prototype']>;
   }
 ) => React.ReactElement;

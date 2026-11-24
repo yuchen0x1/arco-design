@@ -54,8 +54,16 @@ describe('Spin', () => {
   });
 
   it('reschedules a pending indicator when the delay changes', () => {
-    const view = render(<Spin loading delay={500}>Content</Spin>);
-    view.rerender(<Spin loading delay={20}>Content</Spin>);
+    const view = render(
+      <Spin loading delay={500}>
+        Content
+      </Spin>
+    );
+    view.rerender(
+      <Spin loading delay={20}>
+        Content
+      </Spin>
+    );
     act(() => {
       jest.advanceTimersByTime(20);
     });
@@ -63,13 +71,21 @@ describe('Spin', () => {
   });
 
   it('hides immediately when loading stops despite a delay', () => {
-    const view = render(<Spin loading delay={20}>Content</Spin>);
+    const view = render(
+      <Spin loading delay={20}>
+        Content
+      </Spin>
+    );
     act(() => {
       jest.advanceTimersByTime(20);
     });
     expect(view.find('.arco-spin-loading-layer')).toHaveLength(1);
 
-    view.rerender(<Spin loading={false} delay={500}>Content</Spin>);
+    view.rerender(
+      <Spin loading={false} delay={500}>
+        Content
+      </Spin>
+    );
 
     expect(view.find('.arco-spin-loading-layer')).toHaveLength(0);
   });

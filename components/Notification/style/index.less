@@ -158,11 +158,23 @@
     cursor: pointer;
     top: @notification-close-icon-top;
     right: @notification-close-icon-right;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     color: @notification-color-close-icon;
     font-size: @notification-close-icon-font-size;
+    padding: 0;
+    border: none;
+    background-color: transparent;
 
     > svg {
       position: relative;
+    }
+
+    &:focus-visible {
+      outline: 2px solid @primary-6;
+      outline-offset: 2px;
+      border-radius: @border-radius-small;
     }
   }
 

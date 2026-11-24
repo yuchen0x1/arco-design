@@ -7,7 +7,7 @@
   "scripts": {
     "build:es": "rimraf ./es && tsc -p tsconfig.json",
     "build:cjs": "rimraf ./lib && tsc -p tsconfig.cjs.json",
-    "build:dist": "cd ../ && BUILD_TYPE=hooks ./node_modules/.bin/arco-scripts build:component:dist",
+    "build:dist": "cd ../ && cross-env BUILD_TYPE=hooks arco-scripts build:component:dist",
     "generate": "rimraf src-es/* src-lib/* && node ./scripts/generate.js ",
     "build": "yarn generate && yarn build:cjs && yarn build:es"
   },

@@ -1,5 +1,5 @@
 import { Dayjs } from 'dayjs';
-import { isValidElement } from 'react';
+import { Fragment, isValidElement } from 'react';
 import ReactDOM from 'react-dom';
 import { isForwardRef } from 'react-is';
 
@@ -119,6 +119,12 @@ export const isDOMElement = (element: any): boolean => {
 
 export const isReact18 = Number(ReactDOM.version?.split('.')[0]) > 17;
 export const isReact19 = Number(ReactDOM.version?.split('.')[0]) > 18;
+
+// react-is 19 only recognizes React 19's transitional element symbol, while
+// react-is 18 only recognizes React 16-18's element symbol. Detect fragments
+// through React's own isValidElement so both ranges work with either version.
+export const isFragment = (element: any): boolean =>
+  isValidElement(element) && element.type === Fragment;
 
 // 基本copy:  https://github.com/facebook/react/blob/main/packages/react-is/src/ReactIs.js
 // 改动了点逻辑

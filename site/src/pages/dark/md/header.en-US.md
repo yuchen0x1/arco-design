@@ -41,6 +41,10 @@ body {
   background-color: var(--color-bg-1);
   color: var(--color-text-1);
 }
+
+body[arco-theme='dark'] {
+  color-scheme: dark;
+}
 ```
 
 ## Theory

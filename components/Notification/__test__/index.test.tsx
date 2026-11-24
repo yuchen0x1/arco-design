@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, $, sleep } from '../../../tests/util';
+import { render, $, fireEvent, sleep } from '../../../tests/util';
 import Notification from '..';
 import Notice from '../../_class/notice';
 import { IconMessage } from '../../../icon';
@@ -53,6 +53,21 @@ describe('open message', () => {
     expect($('.arco-notification .arco-notification-icon .arco-icon-info-circle-fill').length).toBe(
       0
     );
+  });
+
+  it('renders an accessible default close button', () => {
+    Notification.info({
+      content: 'Content',
+      duration: 0,
+    });
+
+    const closeButton = $('.arco-notification-close-btn').item(0) as HTMLButtonElement;
+    expect(closeButton.tagName).toBe('BUTTON');
+    expect(closeButton.getAttribute('aria-label')).toBe('Close');
+
+    fireEvent.click(closeButton);
+    jest.runAllTimers();
+    expect($('.arco-notification').length).toBe(0);
   });
 
   it('Muti instances number correct', () => {

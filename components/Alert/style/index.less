@@ -161,6 +161,12 @@
     &:hover {
       color: @alert-color-close-icon_hover;
     }
+
+    &:focus-visible {
+      outline: 2px solid @primary-6;
+      outline-offset: 2px;
+      border-radius: @border-radius-small;
+    }
   }
 
   &-action + &-close-btn {

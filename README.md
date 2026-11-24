@@ -11,6 +11,8 @@
 
 A comprehensive React UI components library based on the [Arco Design](https://arco.design/) system.
 
+This repository is an independent enhanced fork of [`arco-design/arco-design`](https://github.com/arco-design/arco-design). It preserves Arco's APIs and visual language while adding fork-specific accessibility, React compatibility, CI and release-hardening improvements. It is not the official npm distribution channel.
+
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/arco-design/arco-design/blob/main/LICENSE)
 [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/arco-design/awesome-arco)
 
@@ -49,21 +51,19 @@ All components are written in TypeScript so it's type friendly.
 
 # Installation
 
-Available as an [npm package](https://www.npmjs.com/package/@arco-design/web-react)
+Fork releases are published as verified GitHub Release archives. The npm package with the same name belongs to the upstream project and may contain a different version.
 
 ```bash
-// with npm
-npm install @arco-design/web-react
-
-// with yarn
-yarn add @arco-design/web-react
+npm install https://github.com/yuchen0x1/arco-design/releases/download/v2.66.21/arco-design-web-react-2.66.21.tgz
 ```
+
+Verify `SHA256SUMS` and the GitHub build attestation from the release page before production use.
 
 # Examples
 
 ```typescript
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Button } from '@arco-design/web-react';
 import '@arco-design/web-react/dist/css/arco.css';
 
@@ -75,8 +75,26 @@ function App() {
   );
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+const container = document.getElementById('app');
+
+if (container) {
+  createRoot(container).render(<App />);
+}
 ```
+
+React 16 and 17 use `ReactDOM.render`; React 18 and 19 use `createRoot`. Applications using the imperative `Message`, `Notification` or `Modal` APIs on React 19 must import `@arco-design/web-react/es/_util/react-19-adapter`.
+
+# Development
+
+```bash
+corepack yarn install --frozen-lockfile
+corepack yarn icon
+corepack yarn build
+corepack yarn test:client
+corepack yarn test:node
+```
+
+The CI workflow runs the build, unit tests, package archive creation and consumer installation checks. Releases are created from verified `v*` tags with checksums and build attestations; see [SECURITY.md](./SECURITY.md) and [docs/platforms.md](./docs/platforms.md).
 
 # Useful Links
 

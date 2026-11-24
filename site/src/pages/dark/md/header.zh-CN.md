@@ -40,7 +40,10 @@ darkThemeMq.addEventListener('change', e => {
 body {
   background-color: var(--color-bg-1);
   color: var(--color-text-1);
-  color-scheme: dark; // 这个属性设置后，滚动条也能表现为暗色模式
+}
+
+body[arco-theme='dark'] {
+  color-scheme: dark; /* 这个属性设置后，滚动条也能表现为暗色模式 */
 }
 ```
 

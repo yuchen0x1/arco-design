@@ -64,11 +64,7 @@ const CircleProgress = (
   const color = isLinearGradient ? `url(#${linearGradientId})` : (props.color as string);
 
   let dom = (
-    <div
-      className={`${cls}-wrapper`}
-      {...props.progressbarProps}
-      style={{ width, height: width }}
-    >
+    <div className={`${cls}-wrapper`} {...props.progressbarProps} style={{ width, height: width }}>
       <svg viewBox={`0 0 ${width} ${width}`} className={`${svgCls}`}>
         {isLinearGradient && (
           <defs>
@@ -115,7 +111,11 @@ const CircleProgress = (
   // type === line 时候，返回的是一个圆环
   if (size === 'mini' && status === 'success' && props.type === 'circle') {
     dom = (
-      <div className={`${cls}-wrapper`} {...props.progressbarProps} style={{ width, height: width }}>
+      <div
+        className={`${cls}-wrapper`}
+        {...props.progressbarProps}
+        style={{ width, height: width }}
+      >
         <IconCheck style={{ fontSize: width - 2, color }} />
       </div>
     );

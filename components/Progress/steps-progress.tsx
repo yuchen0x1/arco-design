@@ -38,11 +38,7 @@ export const StepsProgress = (props) => {
 
   return (
     <div className={`${cls}-wrapper`}>
-      <div
-        className={`${cls}-outer`}
-        {...props.progressbarProps}
-        style={{ height }}
-      >
+      <div className={`${cls}-outer`} {...props.progressbarProps} style={{ height }}>
         {[...new Array(props.steps)].map((_, index) => {
           const isActive = percent > (100 / props.steps) * index;
           return (

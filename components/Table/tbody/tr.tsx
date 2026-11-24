@@ -140,7 +140,12 @@ function Tr<T>(props: TrType<T>, ref) {
       return customIcon;
     }
     return (
-      <button {...onClickProps} type="button">
+      <button
+        {...onClickProps}
+        type="button"
+        aria-label={expanded ? 'Collapse row' : 'Expand row'}
+        aria-expanded={expanded}
+      >
         {expanded ? <IconMinus /> : <IconPlus />}
       </button>
     );

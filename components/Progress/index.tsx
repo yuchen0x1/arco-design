@@ -81,9 +81,7 @@ function Progress(baseProps: ProgressProps, ref) {
         'bufferColor',
       ])}
     >
-      {type === 'steps' && (
-        <StepsProgress {...sharedProps} type={type} />
-      )}
+      {type === 'steps' && <StepsProgress {...sharedProps} type={type} />}
 
       {type === 'circle' && (
         <CircleProgress
